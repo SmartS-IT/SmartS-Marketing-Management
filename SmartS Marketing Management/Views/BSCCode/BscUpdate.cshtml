@@ -1,0 +1,120 @@
+﻿@{
+    ViewBag.Title = "BscUpdate";
+}
+
+<div>
+    <div>
+        <div style="display: flex; justify-content: space-between;">
+            <h4 style="text-align: left;">BSC Code Update</h4>
+            <label id="TxtErrorField" style="padding-top:9px" class="blinker"></label>
+        </div>
+        <p></p>
+        <p></p>
+        <div>
+            <div style=" width:90%; display: grid; grid-template-columns: 1fr 1fr 1fr;">
+                <div style="grid-column: 1; text-align: left;">
+                    <label style=" background-color: lightgray ">&nbsp;&nbsp;Add Domain&nbsp;&nbsp; </label>
+                </div>
+                <div style="grid-column: 2; text-align: center; padding-left:25px">
+                    <label style="background-color: lightgray;">&nbsp;&nbsp;Update Domain&nbsp;&nbsp;  </label>
+                </div>
+                <div style="grid-column: 3; text-align: right;padding-left:-10px">
+                    <label style="background-color: lightgray;">&nbsp;&nbsp;Search Domain&nbsp;&nbsp;</label>
+                </div>
+            </div>
+
+                <div class="container" style="border: 2px solid #E0E0E0; display: flex; justify-content: left; margin-top:-5px; background-color:lightgrey">
+                    <div style="padding:10px">
+                        <div>
+                            <label id="fdomain" style="margin-right:37px">Domain</label>
+                            <input type="text" id="domain" name="domain"><br><br>
+                        </div>
+                        <div>
+                            <label id="fbscode" style="margin-right:20px">BSC Code</label>
+                            <input type="text" id="bsc_code" name="bsc_code"><br><br>
+                        </div>
+                    </div>
+                    <div style="padding-left:20px;padding:10px">
+                        <button class="btn btn-success" onclick=AddNewBSCCode()><span>Add New </span></button>
+                    </div>
+                    <div>
+                        <div class="vertical" style="height:100%"></div>
+                    </div>
+                    <div style="padding-left:10px; padding:10px">
+                        <div>
+                            <label id="u_fdomain" style="margin-right:37px">Domain   </label>
+                            <input type="text" id="udomain"><br><br>
+                        </div>
+                        <div>
+                            <label id="u_fbscode" style="margin-right:20px">BSC Code   </label>
+                            <input type="text" id="ubsccode"><br><br>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="lbnewcodes" name="newcodes" onclick="NewDomainSearch()" value="New BS Codes" style="height:15px;width:15px;" />
+                            <label for="scales">Unmapped Business-Setup Only</label>
+                        </div>
+                    </div>
+                    <div style="padding-left:10px;padding:10px">
+                        <button class="btn btn-danger" onclick="UpdateBSCCode()" style="background-color: #008996"><span>Update</span></button>
+                    </div>
+                    <div>
+                        <div class="vertical" style="height:100%"></div>
+                    </div>
+                    <div style="padding-left:10px;padding:10px">
+                        <input type="text" id="txtSearchDomain" onkeyup="SearchDomain()" placeholder="Search Domain" />
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="form-group" style="padding-top:10px;height:100%">
+                        <!--		Show Numbers Of Rows 		-->
+                        <select class="form-control" style="width:auto" name="state" id="maxRows">
+                            <option value="5000">Show All</option>
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                            <option value="70">70</option>
+                            <option value="100">100</option>
+                        </select>
+
+                    </div>
+                    <div class="table-wrapper">
+                        <table class="table table-striped table-class" id="tb_bsccode">
+                            <thead>
+                                <tr>
+                                    <th>Check</th>
+                                    <th>Domain</th>
+                                    <th>BSC Code</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                        <div class="loader" id="Buffer"></div>
+                        <!--		Start Pagination -->
+                        <!--<div class='pagination-container'>
+    <nav>
+        <ul class="pagination">
+
+            <li data-page="prev">
+                <span> < <span class="sr-only">(current)</span></span>
+            </li>-->
+                        <!--	Here the JS Function Will Add the Rows -->
+                        <!--<li data-page="next" id="prev">
+                    <span> > <span class="sr-only">(current)</span></span>
+                </li>
+            </ul>
+        </nav>
+    </div>-->
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    <script>
+        FetchAllBscCodes(null);
+        $('#maxRows').val(5).change();
+    </script>
+
+</div>

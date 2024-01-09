@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SS Smart Data</title>
+    @Styles.Render("~/Content/css")
+    @*@Scripts.Render("~/bundles/modernizr")*@
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>*@
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+    @Scripts.Render("~/Scripts/CustomScripts.js")
+    @Scripts.Render("~/Scripts/CustomScripts2.js")
+    <link href="~/Content/CustomStyle.css" rel="stylesheet" />
+    <style>
+    </style>
+</head>
+
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("SS Smart Data", "BscUpdate", "BSCCode", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            @*<div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Update", "Index", "Home")</li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    </ul>
+                </div>*@
+            <div class="navbar-collapse collapse">
+                <div class="dropdown_dr">
+                    <button class="dropbtn_dr">
+                        Update
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-content_dr">
+                        @Html.ActionLink("BSC Code", "BscUpdate", "BSCCode")
+                        @Html.ActionLink("TC Code", "TcCodeUpdate", "TCCode")
+                        @Html.ActionLink("Job Function", "JobFunction", "JobFunction")
+                    </div>
+                </div>
+                <div class="dropdown_dr">
+                    <button class="dropbtn_dr">
+                        Extract
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-content_dr">
+                        @Html.ActionLink("Everlytic Data", "EverlyticView", "Home")
+                    </div>
+                </div>
+                <div class="dropdown_dr">
+                    <button class="dropbtn_dr">
+                        Miscellaneous
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-content_dr">
+                        @Html.ActionLink("Application Search", "ApplicationSearch", "MiscellaneousSearch")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer style="display: grid; grid-template-columns: 1fr 1fr 1fr;">
+            <p style="grid-column: 2; text-align: center;">&copy; @DateTime.Now.Year - Copyright - Smart Salem</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

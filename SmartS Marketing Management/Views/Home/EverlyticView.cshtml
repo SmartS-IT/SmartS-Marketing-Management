@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewBag.Title = "EverlyticView";
+} 
+<div>
+    <div>
+        <div style="display: flex; justify-content: space-between;">
+            <h4 style="text-align: left;">Everlytic Data</h4>
+            <label id="TxtErrorField" style="padding-top:9px" class="blinker"></label>
+        </div>
+        <p></p>
+        <p></p>
+        <div>  
+            <div class="container" style="border: 2px solid #E0E0E0; display: flex; justify-content: left; margin-top: -5px; background-color: lightgrey ">
+                <div style="padding:10px">
+                    <div>
+                        <label id="lbFromDate" style="margin-right:10px">From Date</label>
+                        <input type="date" id="txtFromDate" name="domain"><br><br>
+                    </div>
+                </div>
+                <div style="padding-left:50px; padding:10px">
+                    <div>
+                        <label id="lbToDate" style="margin-right:10px">To Date</label>
+                        <input type="date" id="txtToDate"><br><br>
+                    </div>
+                </div>
+                <div style="padding-left: 50px; padding: 10px;">
+                    <div>
+                        <label id="lb_filepath" style="margin-right:10px">Location</label>
+                        <input type="text" id="fileUpload" value="@TempData["DefaultFilePath"]"><br><br>
+                    </div>
+                </div> 
+                <div style="padding-left: 20px; padding: 10px; text-align: end; position: absolute; right: 35px;">
+                    <button class="btn btn-success" onclick="ExportToExcel()"><span>Export File</span></button>
+                </div>
+            </div>
+            <div class="CustContainer">
+                <div class="loader" id="EverBuffer" ></div>
+                <!--		Start Pagination -->
+                <!--<div class='pagination-container'>
+                <nav>
+                    <ul class="pagination">
+
+                        <li data-page="prev">
+                            <span> < <span class="sr-only">(current)</span></span>
+                        </li>-->
+                <!--	Here the JS Function Will Add the Rows -->
+                <!--<li data-page="next" id="prev">
+                                <span> > <span class="sr-only">(current)</span></span>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>-->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $('#EverBuffer').hide();
+    </script>
+
+</div>
+
