@@ -42,7 +42,7 @@ namespace SmartS_Marketing_Management.Controllers
         [HttpPost]
         public ActionResult InsertNewTCCode(TcCodeModel data)
         {
-            var items = tcCodeModels?.Where(x => x.TC_Name.ToUpper().Contains(data.TC_Name.ToUpper())).Select(y => y);
+            var items = tcCodeModels?.Where(x => x.TC_Name.ToUpper()== data.TC_Name.ToUpper()).Select(y => y);
             if (items?.Count() > 0)
             {
                 return Json(Helper.Helper.ConvertToJsonString(false, "Domain is already exist", null));

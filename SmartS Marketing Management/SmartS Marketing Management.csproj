@@ -221,6 +221,7 @@
     <Compile Include="Interfaces\ICodeServices.cs" />
     <Compile Include="Models\BscCodeModel.cs" />
     <Compile Include="Models\CustomerInfoModel.cs" />
+    <Compile Include="Models\JobDetails.cs" />
     <Compile Include="Models\JobFunctions.cs" />
     <Compile Include="Models\TcCodeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
