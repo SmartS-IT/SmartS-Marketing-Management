@@ -30,5 +30,11 @@ namespace SmartS_Marketing_Management.Interfaces
 
         List<CustomerInfoModel> FetchAllApplicationData(string fromDate, string ToDate, string domain,
             string tcName, string mobile, string freezoneCode, out bool status);
+        Tuple<List<JobFunction>, List<JobIndustry>> FetchAllJobFunctions(int mode, out bool status);
+
+        bool UpdateJobDetails(JobDetails jobFunctions);
+
+        List<JobDetails> FetchAllJobDetails(out bool status);
+
     }
 }

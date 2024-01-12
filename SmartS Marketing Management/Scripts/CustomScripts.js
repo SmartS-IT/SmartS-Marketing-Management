@@ -146,7 +146,7 @@ function limitPagging() {
 function AddNewBSCCode() {
 
     if ($('#bsc_code').val().length === 0 || $('#domain').val().length === 0 ) {
-        ValidationError(false, "Please fill the mandatory fields..!!");
+        ValidationError(false, "Please fill the mandatory fields..!!", "TxtErrorField");
         return;
     }
 
@@ -156,7 +156,7 @@ function AddNewBSCCode() {
         BSC_Code: document.getElementById("bsc_code").value,
     };
 
-    ValidationError(false, "");
+    ValidationError(false, "", "TxtErrorField");
   
     $.ajax('/bsccode/InsertNewBSCCode', {
         type: 'post',
@@ -164,7 +164,7 @@ function AddNewBSCCode() {
         dataType: 'json',
         data: JSON.stringify(datas),
         success: function (d) {
-            ValidationError(d.Status, d.ErrorString);
+            ValidationError(d.Status, d.ErrorString, "TxtErrorField");
             if (d.Status == true) { 
                 FetchAllBscCodes(); 
                 $('#domain').val("");
@@ -172,10 +172,10 @@ function AddNewBSCCode() {
             } 
         },
         error: function () {
-            ValidationError(false,"Failed with Errors");
+            ValidationError(false, "Failed with Errors", "TxtErrorField");
         },
         failure: function () {
-            ValidationError(false, "Failed with Errors");
+            ValidationError(false, "Failed with Errors", "TxtErrorField");
         }
         
     });  
@@ -194,7 +194,7 @@ function FetchAllBscCodes(obj) {
             
         },
         error: function (ex) {
-            ValidationError(false, "Failed with Errors");
+            ValidationError(false, "Failed with Errors", "TxtErrorField");
         }
     });
 }
@@ -209,7 +209,7 @@ function SearchDomain() {
             AddToTable(data) 
         },
         error: function (ex) {
-            ValidationError(false, "Failed with Errors");
+            ValidationError(false, "Failed with Errors", "TxtErrorField");
         }
     });
 }
@@ -224,7 +224,7 @@ function NewDomainSearch() {
             AddToTable(data)
         },
         error: function (ex) {
-            ValidationError(false, "Failed with Errors");
+            ValidationError(false, "Failed with Errors", "TxtErrorField");
         }
     });
 }
@@ -249,8 +249,7 @@ function BscTableCheckBox(id) {
                 $('#ubsccode').val(item.BSC_Code);
             }
         }
-        else {
-            alert("Failed");
+        else {;
         }
     }
     else {
@@ -276,7 +275,7 @@ function AddToTable(Data) {
 function UpdateBSCCode() {
 
     if ($('#udomain').val().length === 0 || $('#ubsccode').val().length === 0) {
-        ValidationError(false, "Select a valid details from the grid and fill all mandatory fields..!!");
+        ValidationError(false, "Select a valid details from the grid and fill all mandatory fields..!!", "TxtErrorField");
         return;
     }
 
@@ -287,14 +286,14 @@ function UpdateBSCCode() {
         BSC_Code: document.getElementById("ubsccode").value,
     }; 
 
-    ValidationError(false, "");
+    ValidationError(false, "", "TxtErrorField");
     $.ajax('/bsccode/UpdateBscCode', {
         type: 'post',
         contentType: 'application/json',
         dataType: 'json',
         data: JSON.stringify(datas),
         success: function (d) { 
-            ValidationError(d.Status, d.ErrorString);
+            ValidationError(d.Status, d.ErrorString, "TxtErrorField");
 
             if (d.Status == true) {
                 /* FetchAllBscCodes();*/
@@ -312,10 +311,10 @@ function UpdateBSCCode() {
             }
         },
         error: function (ex) {
-            ValidationError(false, "Failed with Errors");
+            ValidationError(false, "Failed with Errors", "TxtErrorField");
         },
         failure: function (ex) {
-            ValidationError(false, "Failed with Errors");
+            ValidationError(false, "Failed with Errors", "TxtErrorField");
         }
 
     });
@@ -324,42 +323,11 @@ function UpdateBSCCode() {
 //#End region
 
 //#region TC Code
-function ValidationError(status, errorString) {
-    if (status == true) {
-         
-        let lab = document.getElementById("TxtErrorField"); // access the button by id
-        lab.style.color = 'Green';
-
-        $('#TxtErrorField').text(errorString);
-    }
-    else {
-
-        let lab = document.getElementById("TxtErrorField"); // access the button by id
-        lab.style.color = 'Red';
-        $('#TxtErrorField').text(errorString);
-    }
-}
-
-function TCValidationError(status, errorString) {
-    if (status == true) {
-
-        let lab = document.getElementById("TcTxtErrorField"); // access the button by id
-        lab.style.color = 'Green';
-
-        $('#TcTxtErrorField').text(errorString);
-    }
-    else {
-
-        let lab = document.getElementById("TcTxtErrorField"); // access the button by id
-        lab.style.color = 'Red';
-        $('#TcTxtErrorField').text(errorString);
-    }
-}
 
 function AddNewTCCode() {
 
     if ($('#tcname').val().length === 0 || $('#tccode').val().length === 0) {
-        TCValidationError(false, "Please fill the mandatory fields..!!");
+        ValidationError(false, "Please fill the mandatory fields..!!", "TcTxtErrorField");
         return;
     }
 
@@ -376,16 +344,16 @@ function AddNewTCCode() {
         success: function (d) {
             /*alert("Success");*/
             FetchAllTcCodes();
-            TCValidationError(d.Status, d.ErrorString);
+            ValidationError(d.Status, d.ErrorString, "TcTxtErrorField");
 
             $('#tcname').val("");
             $('#tccode').val("");
         },
         error: function (ex) {
-            TCValidationError(false, "Failed with error..!!");
+            TCValidationError(false, "Failed with error..!!", "TcTxtErrorField");
         },
         failure: function (ex) {
-            TCValidationError(false, "Failed with error..!!");
+            TCValidationError(false, "Failed with error..!!", "TcTxtErrorField");
         }
 
     });
@@ -404,7 +372,7 @@ function FetchAllTcCodes(obj) {
 
         },
         error: function (ex) {
-            TCValidationError(false, "Failed with error..!!");
+            TCValidationError(false, "Failed with error..!!", "TcTxtErrorField");
         }
     });
 }
@@ -444,7 +412,7 @@ function TcTableCheckBox(id) {
             }
         }
         else {
-            TCValidationError(false, "Failed with error..!!");
+            ValidationError(false, "Failed with error..!!", "TcTxtErrorField");
         }
     }
     else {
@@ -457,7 +425,7 @@ function TcTableCheckBox(id) {
 function UpdateTCCode() {
 
     if ($('#utcname').val().length === 0 || $('#utccode').val().length === 0) {
-        TCValidationError(false, "Select a valid details from the grid or fill all mandatory fields..!!");
+        ValidationError(false, "Select a valid details from the grid or fill all mandatory fields..!!", "TcTxtErrorField");
         return;
     }
 
@@ -474,7 +442,7 @@ function UpdateTCCode() {
         data: JSON.stringify(datas),
         success: function (d) {
 
-            TCValidationError(d.Status, d.ErrorString);
+            ValidationError(d.Status, d.ErrorString, "TcTxtErrorField");
             if (d.Status == true) {
                 /* FetchAllTcCodes();*/
                 $('#trid' + currentId).replaceWith("<tr id=trid" + currentId + "><td>" + '<input id=' + currentId + ' type="checkbox" onclick="TcTableCheckBox(' + currentId + ')">' + "</td><td>" + $('#utcname').val() + "</td><td>" + $('#utccode').val() + "</td></tr>");
@@ -489,10 +457,10 @@ function UpdateTCCode() {
             }  
         },
         error: function (ex) {
-            TCValidationError(false, "Failed with error..!!");
+            ValidationError(false, "Failed with error..!!", "TcTxtErrorField");
         },
         failure: function (ex) {
-            TCValidationError(false, "Failed with error..!!");
+            ValidationError(false, "Failed with error..!!", "TcTxtErrorField");
         }
 
     });
@@ -508,7 +476,7 @@ function SearchTCName() {
             AddToTCTable(data)
         },
         error: function (ex) { 
-            TCValidationError(false, "Failed with error..!!");
+            ValidationError(false, "Failed with error..!!", "TcTxtErrorField");
         }
     });
 }
@@ -523,7 +491,7 @@ function NewTCCodeSearch() {
             AddToTCTable(data)
         },
         error: function (ex) {
-            TCValidationError(false, "Failed with error..!!");
+            ValidationError(false, "Failed with error..!!", "TcTxtErrorField");
         }
     });
 }
@@ -531,14 +499,14 @@ function NewTCCodeSearch() {
 
 //#region Export File
 function ExportToExcel() {
-    ValidationError(false, "");
+    ValidationError(false, "", "ExpErrorField");
     if ($('#txtFromDate').val().length === 0 || $('#txtToDate').val().length === 0) {
-        ValidationError(false, "Please select dates..!!");
+        ValidationError(false, "Please select dates..!!", "ExpErrorField");
         return;
     }
 
     if ($('#fileUpload').val().length === 0) {
-        ValidationError(false, "Please choose valid file.!!");
+        ValidationError(false, "Please choose valid file.!!", "ExpErrorField");
         return;
     }
 
@@ -556,7 +524,7 @@ function ExportToExcel() {
         data: datas,
         traditional: true,
         success: function (data) { 
-            ValidationError(data.Status, data.ErrorString);
+            ValidationError(data.Status, data.ErrorString, "ExpErrorField");
             $('#EverBuffer').hide();
         },
         error: function (ex) {
@@ -570,7 +538,7 @@ function ExportToExcel() {
 function InsertJobfunctions()
 { 
     if ($('#txtJobFunc').val().length === 0 && $('#txtIndustry').val().length === 0) {
-        JobValidationError(false, "Please enter Job Function or Industry..!!");
+        ValidationError(false, "Please enter Job Function or Industry..!!","JbTxtErrorField");
         return;
     } 
 
@@ -585,31 +553,22 @@ function InsertJobfunctions()
         url: '/JobFunction/InsertFunctionAndIndustry',
         datatype: "json",
         data: datas,
-        success: function (data) {
-            JobValidationError(data.Status, data.ErrorString);
-            $('#EverBuffer').hide();
-            $('#txtJobFunc').val("");
-            $('#txtIndustry').val("");
+        success: function (data) { 
+            if (data.Status) {
+                FetchJobFunctionsOrIndustr(0);
+                FetchJobFunctionsOrIndustr(1);
+                $('#txtJobFunc').val("");
+                $('#txtIndustry').val("");
+            } else {
+
+            }
+            ValidationError(data.Status, data.ErrorString, "JbTxtErrorField");
+            $('#EverBuffer').hide(); 
         },
         error: function (ex) {
             $('#EverBuffer').hide();
-            JobValidationError(false, "Failed with error..!!");
+            ValidationError(false, "Failed with error..!!", "JbTxtErrorField");
         }
     });
-}
+} 
 
-function JobValidationError(status, errorString) {
-    if (status == true) {
-
-        let lab = document.getElementById("JbTxtErrorField"); // access the button by id
-        lab.style.color = 'Green';
-
-        $('#JbTxtErrorField').text(errorString);
-    }
-    else {
-
-        let lab = document.getElementById("JbTxtErrorField"); // access the button by id
-        lab.style.color = 'Red';
-        $('#JbTxtErrorField').text(errorString);
-    }
-}

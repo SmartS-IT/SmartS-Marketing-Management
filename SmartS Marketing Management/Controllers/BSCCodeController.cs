@@ -34,7 +34,8 @@ namespace SmartS_Marketing_Management.Controllers
         [HttpPost]
         public ActionResult InsertNewBSCCode(BscCodeModel data)
         {
-            var items = bscCodeModels.Where(x => x.Domain.ToUpper().Contains(data.Domain.ToUpper())).Select(y => y);
+            bscCodeModels = FetchAllData(out _);
+            var items = bscCodeModels.Where(x => x.Domain.ToUpper() == data.Domain.ToUpper()).Select(y => y);
             if (items.Count() > 0)
             {
                 return Json(Helper.Helper.ConvertToJsonString(false, "Domain is already exist", null));

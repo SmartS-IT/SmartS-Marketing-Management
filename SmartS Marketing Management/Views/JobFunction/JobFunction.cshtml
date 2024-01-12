@@ -28,11 +28,11 @@
                 <div style="padding-top :10px">
                     <div>
                         <label id="lbJobFunct"  style="margin-right:10px">Job Function</label>
-                        <input type="text" id="txtJobFunc" name="domain"><br><br>
+                        <input type="text" id="txtJobFunc" name="JobFunc"><br><br>
                     </div>
                     <div style="margin-top:-5px">
                         <label id="lbIndustry" style="margin-right:43px">Industry</label>
-                        <input type="text" id="txtIndustry" name="bsc_code"><br><br>
+                        <input type="text" id="txtIndustry" name="Industry"><br><br>
                     </div>
                     <div>
                         <button class="btn btn-success" onclick=InsertJobfunctions()><span>Save</span></button>
@@ -48,33 +48,28 @@
                     </div>
                     <div  style="margin-top:-5px">
                         <label id="u_function" style="margin-right:8px">Function   </label>
-                        <select class="js-example-basic-single" style="height: 25px; width: 185px;" name="Function">
-                            <option value="AL">Select Any</option>
-                            ...
-                            <option value="WY">Wyoming</option>
+                        <select class="js-example-basic-single" id="ComboJobFunc" style="height: 25px; width: 185px;" name="Function">
+                           
                         </select>
                     </div>
                     <div style="margin-top:15px">
                         <label id="u_fbscode" style="margin-right:12px">Industry   </label>
-                        <select class="js-example-basic-single" style="height: 25px; width: 185px;" name="Industry">
-                            <option value="AL">Select Any</option>
-                            ...
-                            <option value="WY">Wyoming</option>
+                        <select class="js-example-basic-single" id="ComboJobIndus" style="height: 25px; width: 185px;" name="Industry">
                         </select>
                     </div>
                     <div style="margin-top:10px">
-                        <input type="checkbox" id="lbnewcodes" name="newcodes" onclick="NewDomainSearch()" value="New BS Codes" style="height:15px;width:15px;" />
+                        <input type="checkbox" id="lbnewjobs" name="newcodes" onclick="NewJobSearch()" value="NewJobs" style="height:15px;width:15px;" />
                         <label for="scales">Unmapped Jobs</label>
                     </div>
                 </div>
                 <div style="padding-left:10px;padding:10px">
-                    <button class="btn btn-danger" onclick="UpdateBSCCode()" style="background-color: #008996"><span>Update</span></button>
+                    <button class="btn btn-danger" onclick="InsertJobDetails()" style="background-color: #008996"><span>Update</span></button>
                 </div>
                 <div>
                     <div class="vertical" style="height:100%"></div>
                 </div>
                 <div style="padding-left:10px;padding:10px">
-                    <input type="text" id="txtSearchDomain" onkeyup="SearchDomain()" placeholder="Search Job" />
+                    <input type="text" id="txtSearchJob" onkeyup="SearchJobs()" placeholder="Search Job" />
                 </div>
             </div>
             <div class="container">
@@ -92,41 +87,48 @@
                     </select>
 
                 </div>
-                <table class="table table-striped table-class" id="tb_job_func" style="width: 100%; height: 100%; overflow-y: scroll; overflow-x:scroll">
-                    <thead>
-                        <tr>
-                            <th>Check</th>
-                            <th>Title</th>
-                            <th>Function</th>
-                            <th>Industry</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-                <div class="loader" id="Buffer"></div>
-                <!--		Start Pagination -->
-                <!--<div class='pagination-container'>
-                <nav>
-                    <ul class="pagination">
+                <div class="container table-wrapper">
+                    <table class="table table-striped table-class" id="tb_job_func"
+                           style="width: 100%; height: 100%; overflow-y: scroll; overflow-x:scroll">
+                        <thead>
+                            <tr>
+                                <th>Check</th>
+                                <th>Title</th>
+                                <th>Function</th>
+                                <th>Industry</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    <div class="loader" id="JobBuffer"></div>
+                </div>
+                    <!--		Start Pagination -->
+                    <!--<div class='pagination-container'>
+        <nav>
+            <ul class="pagination">
 
-                        <li data-page="prev">
-                            <span> < <span class="sr-only">(current)</span></span>
-                        </li>-->
-                <!--	Here the JS Function Will Add the Rows -->
-                <!--<li data-page="next" id="prev">
-                                <span> > <span class="sr-only">(current)</span></span>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>-->
+                <li data-page="prev">
+                    <span> < <span class="sr-only">(current)</span></span>
+                </li>-->
+                    <!--	Here the JS Function Will Add the Rows -->
+                    <!--<li data-page="next" id="prev">
+                        <span> > <span class="sr-only">(current)</span></span>
+                    </li>
+                </ul>
+            </nav>
+        </div>-->
+                </div>
             </div>
-        </div>
     </div>
 
     <script>
         $(document).ready(function () {
-            $('.js-example-basic-single').select2();
+            $('#JobBuffer').hide(); 
+            FetchAllJobDetails();
+            FetchJobFunctionsOrIndustr(0);
+            FetchJobFunctionsOrIndustr(1);
+            $('#maxRows').val(5).change();
         });
     </script>
 

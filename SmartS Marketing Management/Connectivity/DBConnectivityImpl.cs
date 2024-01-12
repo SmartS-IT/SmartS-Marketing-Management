@@ -375,5 +375,73 @@ namespace SmartS_Marketing_Management.Connectivity
             }
             return table;
         }
+
+        public bool UpdateJobDetails(JobDetails jobFunctions)
+        {
+            try
+            {
+                sqlCommand = new SqlCommand();
+                sqlCommand.Connection = sqlConnection;
+                sqlCommand.CommandText = "UPDATE_MS_JOB_CATEGORIES";
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                var paraTitle = new SqlParameter("@Title", SqlDbType.VarChar, 100);
+                var paraId = new SqlParameter("@Id", SqlDbType.Int);
+                var paraFunc = new SqlParameter("@job_function", SqlDbType.Int);
+                var paraIndustry = new SqlParameter("@industry", SqlDbType.Int);
+
+                paraTitle.Value = jobFunctions.Title;
+                paraId.Value = jobFunctions.Id;
+                paraFunc.Value = jobFunctions.JobFunction;
+                paraIndustry.Value = jobFunctions.Industry;
+
+                sqlCommand.Parameters.Add(paraTitle);
+                sqlCommand.Parameters.Add(paraId);
+                sqlCommand.Parameters.Add(paraFunc);
+                sqlCommand.Parameters.Add(paraIndustry);
+
+                sqlConnection.Open();
+                sqlCommand.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+            return true;
+        }
+
+        public DataTable FetchAllJobDetails(out bool status)
+        {
+            status = true;
+            DataTable table = new DataTable();
+            try
+            {
+                sqlCommand = new SqlCommand();
+                sqlCommand.Connection = sqlConnection;
+                sqlCommand.CommandText = "SELECTALL_JOB_DETAILS";
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                var paramMode = new SqlParameter("@MODE", SqlDbType.Int);
+                paramMode.Value = 2;
+
+                sqlCommand.Parameters.Add(paramMode);
+
+                SqlDataAdapter adapt = new SqlDataAdapter(sqlCommand);
+                sqlConnection.Open();
+                adapt.Fill(table);
+            }
+            catch (Exception e)
+            {
+                status = false;
+                return table;
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+            return table;
+        }
     }
 }

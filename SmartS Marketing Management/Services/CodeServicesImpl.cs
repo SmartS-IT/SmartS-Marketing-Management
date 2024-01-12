@@ -162,29 +162,58 @@ namespace SmartS_Marketing_Management.Services
             }
         }
 
-        //public List<T> FetchAllJobFunctions<T>(int mode, out bool status)
-        //{
-        //    status = true;
-        //    List<JobFunction> functions;
-        //    try
-        //    {
-        //        var dt = dBConnectivityImpl.FetchAllTcCodes(out status);
-        //        if(mode==1)
-        //        {
-        //            functions =  Helper.Helper.ConvertToList<JobFunction>(dt);
-        //            return functions;
-        //        }
-        //        else
-        //        {
-        //            return (JobIndustry)Helper.Helper.ConvertToList<JobIndustry>(dt).ToList();
-        //        }
+        public Tuple<List<JobFunction>, List<JobIndustry>> FetchAllJobFunctions(int mode, out bool status)
+        {
+            status = true; 
+            try
+            {
+                var dt = dBConnectivityImpl.FetchAllFunctionsAndIndustry(mode, out status);
+                if (mode == 1)
+                {
+                    var Ind = Helper.Helper.ConvertToList<JobIndustry>(dt);
+                    return new Tuple<List<JobFunction>, List<JobIndustry>>(null, Ind); 
+                }
+                else
+                {
+                    var functions = Helper.Helper.ConvertToList<JobFunction>(dt);
+                    return new Tuple<List<JobFunction>, List<JobIndustry>>(functions, null);
+                }
+            }
+            catch
+            {
+                status = false;
+            }
+            return null;
+        }
 
-        //    }
-        //    catch
-        //    {
-        //        status = false;
-        //    }
-        //    return null;
-        //}
+        public bool UpdateJobDetails(JobDetails jobFunctions)
+        {
+            try
+            {
+                return dBConnectivityImpl.UpdateJobDetails(jobFunctions);
+
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public List<JobDetails> FetchAllJobDetails(out bool status)
+        {
+            status = true;
+            var jobFunc = new List<JobDetails>();
+
+            try
+            {
+                var dt = dBConnectivityImpl.FetchAllJobDetails(out status);
+                jobFunc = Helper.Helper.ConvertToList<JobDetails>(dt);
+            }
+            catch
+            {
+                status = false;
+            }
+            return jobFunc;
+        } 
     }
 }

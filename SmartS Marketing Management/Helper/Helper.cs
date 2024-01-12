@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace SmartS_Marketing_Management.Helper
@@ -19,8 +20,8 @@ namespace SmartS_Marketing_Management.Helper
             var columnNames = dt.Columns.Cast<DataColumn>().Select(c => c.ColumnName.ToLower()).ToList();
             var properties = typeof(T).GetProperties();
             return dt.AsEnumerable().Select(row => {
-                var objT = Activator.CreateInstance<T>();
-                foreach (var pro in properties)
+                var objT = Activator.CreateInstance<T>(); 
+                Parallel.ForEach(properties, pro =>
                 {
                     if (columnNames.Contains(pro.Name.ToLower()))
                     {
@@ -28,9 +29,9 @@ namespace SmartS_Marketing_Management.Helper
                         {
                             pro.SetValue(objT, row[pro.Name]);
                         }
-                        catch (Exception ex) { }
+                        catch (Exception) { }
                     }
-                }
+                });
                 return objT;
             }).ToList();
         }
