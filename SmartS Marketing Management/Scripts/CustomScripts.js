@@ -154,9 +154,7 @@ function AddNewBSCCode() {
         Email: "",
         Domain: document.getElementById("domain").value,
         BSC_Code: document.getElementById("bsc_code").value,
-    };
-
-    ValidationError(false, "", "TxtErrorField");
+    }; 
   
     $.ajax('/bsccode/InsertNewBSCCode', {
         type: 'post',
@@ -286,7 +284,6 @@ function UpdateBSCCode() {
         BSC_Code: document.getElementById("ubsccode").value,
     }; 
 
-    ValidationError(false, "", "TxtErrorField");
     $.ajax('/bsccode/UpdateBscCode', {
         type: 'post',
         contentType: 'application/json',
@@ -372,7 +369,7 @@ function FetchAllTcCodes(obj) {
 
         },
         error: function (ex) {
-            TCValidationError(false, "Failed with error..!!", "TcTxtErrorField");
+            ValidationError(false, "Failed with error..!!", "TcTxtErrorField");
         }
     });
 }
@@ -499,7 +496,6 @@ function NewTCCodeSearch() {
 
 //#region Export File
 function ExportToExcel() {
-    ValidationError(false, "", "ExpErrorField");
     if ($('#txtFromDate').val().length === 0 || $('#txtToDate').val().length === 0) {
         ValidationError(false, "Please select dates..!!", "ExpErrorField");
         return;

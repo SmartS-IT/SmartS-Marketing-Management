@@ -33,8 +33,7 @@ function AddToComboBox(Data) {
     $('#MagicHouses').html(rows);
 }
 
-function FetchAllApplicationData() {
-    ValidationError(false, "", "AppErrorField");
+function FetchAllApplicationData() { 
 
     if ($('#txtFromDate').val().length === 0 || $('#txtToDate').val().length === 0) {
         ValidationError(false, "Dates are mandatory..!!", "ExpErrorField");
@@ -83,7 +82,8 @@ function AddToDetailsTable(Data) {
     $('#AppBuffer').hide();
 }
 
-function ValidationError(status, errorString, id) { 
+function ValidationError(status, errorString, id) {
+    $('#' + id).fadeIn();
     if (status == true) {
 
         let lab = document.getElementById(id); // access the button by id
@@ -98,8 +98,18 @@ function ValidationError(status, errorString, id) {
     }
 
     setTimeout(function () {
-        $('#' + id).hide('blind', {}, 500)
+        fadeLabelOut(id);
     }, 5000);
+}
+
+//$(document).ready(function () {
+    
+//});
+
+function fadeLabelOut(Id) {
+    $('#' + Id).fadeOut(3000, function () {
+        $(this).html(''); //reset the label after fadeout
+    });
 }
 
 function FetchJobFunctionsOrIndustr(m) {
@@ -133,13 +143,13 @@ function AddToDropDown(Data, id, mode) {
     $('#'+id).html("");
     var rows = "<option value='0'>Select Any</option>";
     if (mode == 0) {
-        $.each(Data, function (i, item) {
-            rows += "<option value=" + item.Id + ">" + item.FunctionName + "</option>";
+        $.each(Data, function (i, item1) {
+            rows += "<option value=" + item1.Id + ">" + item1.FunctionName + "</option>";
         });
     }
-    if (mode == 1) {
-        $.each(Data, function (i, item) {
-            rows += "<option  value=" + item.Id + ">" + item.IndustryName + "</option>";
+    else if (mode == 1) {
+        $.each(Data, function (i, item2) {
+            rows += "<option value=" + item2.Id + ">" + item2.IndustryName + "</option>";
         });
     } 
     $('#'+id).html(rows);
