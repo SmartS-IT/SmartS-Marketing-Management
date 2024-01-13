@@ -36,7 +36,7 @@ function AddToComboBox(Data) {
 function FetchAllApplicationData() { 
 
     if ($('#txtFromDate').val().length === 0 || $('#txtToDate').val().length === 0) {
-        ValidationError(false, "Dates are mandatory..!!", "ExpErrorField");
+        ValidationError(false, "Dates are mandatory..!!", "AppErrorField");
         return;
     }
 
