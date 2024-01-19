@@ -391,9 +391,14 @@ namespace SmartS_Marketing_Management.Connectivity
 
                 paraTitle.Value = jobFunctions.Title;
                 paraId.Value = jobFunctions.Id;
-                paraFunc.Value = jobFunctions.JobFunction;
-                paraIndustry.Value = jobFunctions.Industry;
-
+                if(jobFunctions.JobFunction!=0)
+                {
+                    paraFunc.Value = jobFunctions.JobFunction;
+                }
+                if (jobFunctions.Industry != 0)
+                {
+                    paraIndustry.Value = jobFunctions.Industry;
+                }  
                 sqlCommand.Parameters.Add(paraTitle);
                 sqlCommand.Parameters.Add(paraId);
                 sqlCommand.Parameters.Add(paraFunc);

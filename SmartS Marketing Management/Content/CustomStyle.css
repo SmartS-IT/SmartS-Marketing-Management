@@ -113,16 +113,16 @@
 }
 
 .blinker {
-    animation: blinker 1.5s linear infinite;
+/*    animation: blinker 1.5s linear infinite;*/
     color: red;
     font-family: sans-serif;
 }
 
-@keyframes blinker {
+/*@keyframes blinker {
     50% {
         opacity: 0;
     }
-}
+}*/
 
 .loader {
     border: 16px solid #f3f3f3;

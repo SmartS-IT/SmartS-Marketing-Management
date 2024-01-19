@@ -40,6 +40,11 @@ function FetchAllApplicationData() {
         return;
     }
 
+    if ($('#myHouse').val().length === 0) {
+        ValidationError(false, "Please select Domain or TC Name..!!", "AppErrorField");
+        return;
+    }
+
     var datas = {
         FromDate: $('#txtFromDate').val(),
         ToDate: $('#txtToDate').val(),
@@ -83,7 +88,7 @@ function AddToDetailsTable(Data) {
 }
 
 function ValidationError(status, errorString, id) {
-    $('#' + id).fadeIn();
+    fadeLabeIn(id);
     if (status == true) {
 
         let lab = document.getElementById(id); // access the button by id
@@ -107,7 +112,13 @@ function ValidationError(status, errorString, id) {
 //});
 
 function fadeLabelOut(Id) {
-    $('#' + Id).fadeOut(3000, function () {
+    $('#' + Id).fadeOut(0,function () {
+        $(this).html(''); //reset the label after fadeout
+    });
+}
+
+function fadeLabeIn(Id) {
+    $('#' + Id).fadeIn(0, function () {
         $(this).html(''); //reset the label after fadeout
     });
 }
@@ -157,10 +168,10 @@ function AddToDropDown(Data, id, mode) {
 
 function InsertJobDetails() {
 
-    if ($('#txtTitle').val().length === 0 || $('#ComboJobFunc').val() == 0 || $('#ComboJobIndus').val() == 0) {
-        ValidationError(false, "Please fill are mandatory  fields..!!", "JbTxtErrorField");
+    if ($('#txtTitle').val().length === 0 || ($('#ComboJobFunc').val() == 0 && $('#ComboJobIndus').val() == 0)) {
+        ValidationError(false, "Please fill mandatory fields..!!", "JbTxtErrorField");
         return;
-    }
+    } 
 
     var datas = {
         Id: currentId,
@@ -176,13 +187,17 @@ function InsertJobDetails() {
         success: function (d) {
 
             ValidationError(d.Status, d.ErrorString, "JbTxtErrorField");
-            if (d.Status) { 
-                $('#trid' + currentId).replaceWith("<tr id= trid" + currentId + "><td>" + '<input id=' + currentId + ' type="checkbox" onclick="JobTableCheckBoxCheck(' + currentId + ')">' + "</td><td>" + $('#txtTitle').val() + "</td><td>" + $('#ComboJobFunc :selected').text() + "</td><td>" + $('#ComboJobIndus :selected').text()+ "</td></tr>");
+            if (d.Status) {
+                var func = $('#ComboJobFunc').val() == 0 ? '' : $('#ComboJobFunc :selected').text();
+                var ind = $('#ComboJobIndus').val() == 0 ? '' : $('#ComboJobIndus :selected').text();
+                $('#trid' + currentId).replaceWith("<tr id= trid" + currentId + "><td>" + '<input id=' + currentId + ' type="checkbox" onclick="JobTableCheckBoxCheck(' + currentId + ')">' + "</td><td>" + $('#txtTitle').val() + "</td><td>" + func + "</td><td>" + ind+ "</td></tr>");
                 var item = JobDetails.find(x => x.Id == currentId);
                 if (item != null) {
                     item.Title = $('#txtTitle').val()
-                    item.FunctionName = $('#ComboJobFunc :selected').text();
-                    item.Industry = $('#ComboJobIndus :selected').text()
+                    item.FunctionName = func;
+                    item.IndustryName = ind;
+                    item.JobFunction = func == '' ? -1 : $('#ComboJobFunc').val();
+                    item.Industry = ind == '' ? -1 : $('#ComboJobIndus').val();
                 }
                 $('#txtTitle').val("");
                 $('#ComboJobFunc').val(0);

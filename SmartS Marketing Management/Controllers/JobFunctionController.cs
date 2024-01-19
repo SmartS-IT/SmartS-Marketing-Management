@@ -152,7 +152,8 @@ namespace SmartS_Marketing_Management.Controllers
             JobDetails = icodeServices.FetchAllJobDetails(out bool status);
             if (IsChecked)
             {
-                var items = JobDetails.Where(x => string.IsNullOrEmpty(x.FunctionName) || string.IsNullOrEmpty(x.IndustryName)).Select(y => y);
+                var items = JobDetails.Where(x => string.IsNullOrEmpty(x.FunctionName) ||
+                            string.IsNullOrEmpty(x.IndustryName)).Select(y => y);
                 return Json(items);
             }
             return Json(JobDetails);
