@@ -214,6 +214,23 @@ namespace SmartS_Marketing_Management.Services
                 status = false;
             }
             return jobFunc;
-        } 
+        }
+
+        public List<UserDetails> FetchUserDetails(string username, out bool status)
+        {
+            status = true;
+            var userDetails = new List<UserDetails>();
+
+            try
+            {
+                var dt = dBConnectivityImpl.FetchUserDetails(username, out status);
+                userDetails = Helper.Helper.ConvertToList<UserDetails>(dt);
+            }
+            catch
+            {
+                status = false;
+            }
+            return userDetails;
+        }
     }
 }

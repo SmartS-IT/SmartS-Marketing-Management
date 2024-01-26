@@ -37,6 +37,10 @@ namespace SmartS_Marketing_Management.Controllers
         // GET: MiscellaneousSearch
         public ActionResult ApplicationSearch()
         {
+            if (System.Web.HttpContext.Current.Session["UserName"] == null)
+            {
+                return RedirectToAction("LoginView", "UserManagment");
+            }
             return View();
         }
 

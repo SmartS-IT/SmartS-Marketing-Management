@@ -16,7 +16,7 @@ namespace SmartS_Marketing_Management
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "BSCCode", action = "BscUpdate", id = UrlParameter.Optional }
+                defaults: new { controller = "UserManagment", action = "LoginView", id = UrlParameter.Optional }
             ); 
         }
     }

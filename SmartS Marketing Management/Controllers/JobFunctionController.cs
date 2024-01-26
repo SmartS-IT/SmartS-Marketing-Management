@@ -46,6 +46,10 @@ namespace SmartS_Marketing_Management.Controllers
         // GET: JobFunction
         public ActionResult JobFunction()
         {
+            if (System.Web.HttpContext.Current.Session["UserName"] == null)
+            {
+                return RedirectToAction("LoginView", "UserManagment");
+            }
             return View();
         }
 

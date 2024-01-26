@@ -24,12 +24,20 @@ namespace SmartS_Marketing_Management.Controllers
 
         public ActionResult BscUpdate()
         {
-            return View();
+            if (System.Web.HttpContext.Current.Session["UserName"] == null)
+            {
+                return RedirectToAction("LoginView", "UserManagment");
+            }
+            else
+            { 
+                return View();
+            }
         }
 
         public BSCCodeController()
         {
-        }
+            
+        } 
 
         [HttpPost]
         public ActionResult InsertNewBSCCode(BscCodeModel data)

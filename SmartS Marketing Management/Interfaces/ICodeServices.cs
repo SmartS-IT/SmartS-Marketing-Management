@@ -36,5 +36,7 @@ namespace SmartS_Marketing_Management.Interfaces
 
         List<JobDetails> FetchAllJobDetails(out bool status);
 
+        List<UserDetails> FetchUserDetails(string username, out bool status);
+
     }
 }
