@@ -448,5 +448,35 @@ namespace SmartS_Marketing_Management.Connectivity
             }
             return table;
         }
+
+        public DataTable FetchUserDetails(string username, out bool status)
+        {
+            status = true;
+            DataTable table = new DataTable();
+            try
+            {
+                sqlCommand = new SqlCommand();
+                sqlCommand.Connection = sqlConnection;
+                sqlCommand.CommandText = "FETCH_USER_DETAILS";
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                var paramUsername = new SqlParameter("@USERNAME", SqlDbType.VarChar, 100);
+                paramUsername.Value = username;
+                sqlCommand.Parameters.Add(paramUsername);
+
+                SqlDataAdapter adapt = new SqlDataAdapter(sqlCommand);
+                sqlConnection.Open();
+                adapt.Fill(table);
+            }
+            catch (Exception e)
+            {
+                status = false;
+                return table;
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+            return table;
+        }
     }
 }

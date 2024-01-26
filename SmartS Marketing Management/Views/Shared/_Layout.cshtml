@@ -34,37 +34,51 @@
                         <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     </ul>
                 </div>*@
-            <div class="navbar-collapse collapse">
-                <div class="dropdown_dr">
-                    <button class="dropbtn_dr">
-                        Update
-                        <i class="fa fa-caret-down"></i>
-                    </button>
-                    <div class="dropdown-content_dr">
-                        @Html.ActionLink("BSC Code", "BscUpdate", "BSCCode")
-                        @Html.ActionLink("TC Code", "TcCodeUpdate", "TCCode")
-                        @Html.ActionLink("Job Function", "JobFunction", "JobFunction")
-                    </div>
+        <div class="navbar-collapse collapse">
+            <div class="dropdown_dr">
+                <button class="dropbtn_dr">
+                    Update
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content_dr">
+                    @Html.ActionLink("BSC Code", "BscUpdate", "BSCCode")
+                    @Html.ActionLink("TC Code", "TcCodeUpdate", "TCCode")
+                    @Html.ActionLink("Job Function", "JobFunction", "JobFunction")
                 </div>
-                <div class="dropdown_dr">
-                    <button class="dropbtn_dr">
-                        Extract
-                        <i class="fa fa-caret-down"></i>
-                    </button>
-                    <div class="dropdown-content_dr">
-                        @Html.ActionLink("Everlytic Data", "EverlyticView", "Home")
-                    </div>
+            </div>
+            <div class="dropdown_dr">
+                <button class="dropbtn_dr">
+                    Extract
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content_dr">
+                    @Html.ActionLink("Everlytic Data", "EverlyticView", "Home")
                 </div>
-                <div class="dropdown_dr">
-                    <button class="dropbtn_dr">
-                        Miscellaneous
-                        <i class="fa fa-caret-down"></i>
-                    </button>
-                    <div class="dropdown-content_dr">
-                        @Html.ActionLink("Application Search", "ApplicationSearch", "MiscellaneousSearch")
+            </div>
+            <div class="dropdown_dr">
+                <button class="dropbtn_dr">
+                    Miscellaneous
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content_dr">
+                    @Html.ActionLink("Application Search", "ApplicationSearch", "MiscellaneousSearch")
+                </div>
+            </div> 
+            <div style="float:right">
+                <div style="display:flex">
+                    <div class="navbar-collapse collapse" style="padding-top:15px">
+                        <ul class="nav navbar-nav">
+                            <li>Welcome @Session["UserName"]</li>
+                        </ul>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li> @Html.ActionLink("Log Out", "Logout", "UserManagment")</li>
+                        </ul>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </div>
     <div class="container body-content">

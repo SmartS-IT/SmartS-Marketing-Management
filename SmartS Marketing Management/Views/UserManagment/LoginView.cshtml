@@ -1,0 +1,75 @@
+﻿@{
+    ViewBag.Title = "LoginView";
+}
+
+<h2></h2>
+<br>
+<div class="login"> 
+        <label>
+            <b>
+                User Name
+            </b>
+        </label>
+        <input type="text" name="Uname" id="Uname" placeholder="Username" required>
+        <br><br>
+        <label>
+            <b>
+                Password
+            </b>
+        </label>
+        <input type="Password" name="Pass" id="Pass" placeholder="Password" required>
+        <br><br>
+        <input type="button" name="log" id="log" onclick="CheckUserDetails()" value="Login">
+        <br><br>
+        <label id="LoginError" style="display: block; text-align: center;" ></label> 
+</div>
+
+<style>
+
+    .login {
+        width: 382px; 
+        margin: auto;
+        height:325px;
+        padding: 50px;
+        background: #23463f;
+        border-radius: 15px;
+    }
+
+    h2 {
+        text-align: center;
+        color: #277582;
+        padding: 20px;
+    }
+
+    label {
+        color: #4eb5a4;
+        font-size: 17px;
+    }
+
+    #Uname {
+        width: 300px;
+        height: 30px;
+        border: none;
+        border-radius: 3px;
+        padding-left: 8px;
+    }
+
+    #Pass {
+        width: 300px;
+        height: 30px;
+        border: none;
+        border-radius: 3px;
+        padding-left: 8px;
+    }
+
+    #log {
+        width: 300px;
+        height: 30px;
+        border: none;
+        margin-top:5px;
+        border-radius: 17px; 
+        padding-left: 7px;
+        color: #4eb5a4;
+    }
+
+</style>

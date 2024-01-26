@@ -42,7 +42,12 @@ namespace SmartS_Marketing_Management.Controllers
         }
 
         public ActionResult EverlyticView()
-        { 
+        {
+            if (System.Web.HttpContext.Current.Session["UserName"] == null)
+            {
+                return RedirectToAction("LoginView", "UserManagment");
+            } 
+
             TempData["DefaultFilePath"] = ConfigurationManager.AppSettings["DefaultFilePath"];
             return View();
         }

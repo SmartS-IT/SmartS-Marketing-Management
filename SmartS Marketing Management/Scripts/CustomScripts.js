@@ -566,5 +566,34 @@ function InsertJobfunctions()
             ValidationError(false, "Failed with error..!!", "JbTxtErrorField");
         }
     });
-} 
+}
+
+function CheckUserDetails() {
+
+    if ($('#Uname').val().length === 0 || $('#Pass').val().length === 0) {
+        ValidationError(false, "Please fill all mandatory fields..!!", "LoginError");
+        return;
+    }
+
+    var datas = {
+        username: $('#Uname').val(),
+        password: $('#Pass').val(),
+    };
+
+    $.ajax({
+        type: 'POST',
+        url: '/UserManagment/CheckAuthentication',
+        dataType: 'json',
+        data: datas,
+        success: function (d) {
+            if (!d.Status) {
+                ValidationError(d.Status, d.ErrorString, "LoginError");
+                return;
+            }
+            window.location.href = d.Data;
+        },
+        error: function (ex) { 
+        }
+    });
+}
 

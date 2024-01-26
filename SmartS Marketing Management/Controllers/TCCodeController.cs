@@ -24,6 +24,11 @@ namespace SmartS_Marketing_Management.Controllers
         }    
         public ActionResult TcCodeUpdate()
         {
+            if (System.Web.HttpContext.Current.Session["UserName"] == null)
+            {
+                return RedirectToAction("LoginView", "UserManagment");
+            }
+
             ViewData["Page"] = "TCUPDATE"; 
             return View();
         }  
