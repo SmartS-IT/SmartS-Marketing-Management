@@ -272,7 +272,7 @@ function AddToTable(Data) {
 
 function UpdateBSCCode() {
 
-    if ($('#udomain').val().length === 0 || $('#ubsccode').val().length === 0) {
+    if (currentId ==0 || $('#udomain').val().length === 0 || $('#ubsccode').val().length === 0) {
         ValidationError(false, "Select a valid details from the grid and fill all mandatory fields..!!", "TxtErrorField");
         return;
     }
@@ -421,8 +421,8 @@ function TcTableCheckBox(id) {
 
 function UpdateTCCode() {
 
-    if ($('#utcname').val().length === 0 || $('#utccode').val().length === 0) {
-        ValidationError(false, "Select a valid details from the grid or fill all mandatory fields..!!", "TcTxtErrorField");
+    if (currentId == 0 || $('#utcname').val().length === 0 || $('#utccode').val().length === 0) {
+        ValidationError(false, "Select a valid details from the grid and fill all mandatory fields..!!", "TcTxtErrorField");
         return;
     }
 

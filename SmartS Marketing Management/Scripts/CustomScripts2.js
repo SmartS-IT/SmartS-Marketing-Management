@@ -168,8 +168,8 @@ function AddToDropDown(Data, id, mode) {
 
 function InsertJobDetails() {
 
-    if ($('#txtTitle').val().length === 0 || ($('#ComboJobFunc').val() == 0 && $('#ComboJobIndus').val() == 0)) {
-        ValidationError(false, "Please fill mandatory fields..!!", "JbTxtErrorField");
+    if (currentId == 0 || $('#txtTitle').val().length === 0 || ($('#ComboJobFunc').val() == 0 && $('#ComboJobIndus').val() == 0)) {
+        ValidationError(false, "Select a valid details from the grid and fill all mandatory fields..!!", "JbTxtErrorField");
         return;
     } 
 
