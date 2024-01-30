@@ -318,3 +318,12 @@ function SearchJobs() {
         }
     });
 }
+
+function ClearDetails() {
+    $('#txtFromDate').val('');
+    $('#txtToDate').val('');
+    $('#SltCodes').val(1).change();
+    $('#myHouse').val('');
+    $('#OptOther').val('Mobile');
+    $('#txtFreeTxt').val('');
+}

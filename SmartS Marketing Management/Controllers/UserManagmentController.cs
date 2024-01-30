@@ -34,6 +34,7 @@ namespace SmartS_Marketing_Management.Controllers
                 else if(password== userDetails.FirstOrDefault().Password)
                 {
                     System.Web.HttpContext.Current.Session["UserName"] = username;
+                    System.Web.HttpContext.Current.Session["Name"] = userDetails.FirstOrDefault().Name;
                     return Json(Helper.Helper.ConvertToJsonString(true, "", "/BSCCode/BscUpdate"));
                 }
                 else
@@ -48,6 +49,7 @@ namespace SmartS_Marketing_Management.Controllers
         public ActionResult Logout()
         {
             System.Web.HttpContext.Current.Session["UserName"] = null;
+            System.Web.HttpContext.Current.Session["Name"] = null;
             return RedirectToAction("LoginView", "UserManagment");
         }
     }
