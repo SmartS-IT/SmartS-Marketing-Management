@@ -77,14 +77,51 @@ namespace SmartS_Marketing_Management.Controllers
 
         public bool CreateExcelFile(DataTable dt, string filePath, out string filename)
         {
-            filename = filePath + @"/Everlytic_" + DateTime.Now.ToString("dd-MM-yy-HH-mm-ss")+ ".xlsx";
+            filename = filePath + @"/Everlytic_" + DateTime.Now.ToString("dd_MM_yy_HH_mm_ss")+ ".csv";
             try 
-            { 
-                using (XLWorkbook wb = new XLWorkbook())
+            {
+                //using (XLWorkbook wb = new XLWorkbook())
+                //{
+                //    wb.Worksheets.Add(dt, "Everlytic");  
+                //    wb.SaveAs(filename); 
+                //}
+
+                StreamWriter sw = new StreamWriter(filename, false);
+                //headers
+                for (int i = 0; i < dt.Columns.Count; i++)
                 {
-                    wb.Worksheets.Add(dt, "Everlytic"); 
-                    wb.SaveAs(filename); 
+                    sw.Write(dt.Columns[i]);
+                    if (i < dt.Columns.Count - 1)
+                    {
+                        sw.Write(",");
+                    }
                 }
+                sw.Write(sw.NewLine);
+                foreach (DataRow dr in dt.Rows)
+                {
+                    for (int i = 0; i < dt.Columns.Count; i++)
+                    {
+                        if (!Convert.IsDBNull(dr[i]))
+                        {
+                            string value = dr[i].ToString();
+                            if (value.Contains(','))
+                            {
+                                value = String.Format("\"{0}\"", value);
+                                sw.Write(value);
+                            }
+                            else
+                            {
+                                sw.Write(dr[i].ToString());
+                            }
+                        }
+                        if (i < dt.Columns.Count - 1)
+                        {
+                            sw.Write(",");
+                        }
+                    }
+                    sw.Write(sw.NewLine);
+                }
+                sw.Close();
                 return true;
             }
             catch(Exception e)
