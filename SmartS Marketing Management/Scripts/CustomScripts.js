@@ -519,15 +519,15 @@ function ExportToExcel() {
         return;
     }
 
-    if ($('#fileUpload').val().length === 0) {
-        ValidationError(false, "Please choose valid file.!!", "ExpErrorField");
-        return;
-    }
+    //if ($('#fileUpload').val().length === 0) {
+    //    ValidationError(false, "Please choose valid file.!!", "ExpErrorField");
+    //    return;
+    //}
 
     var datas = {
         FromDate: $('#txtFromDate').val(),
         ToDate: $('#txtToDate').val(),
-        FilePath: $('#fileUpload').val(),
+        FilePath: "",
     };
 
     $('#EverBuffer').show();
@@ -537,11 +537,15 @@ function ExportToExcel() {
         datatype: "json",
         data: datas,
         traditional: true,
-        success: function (data) { 
+        success: function (data) {
+            if (data.Status) {
+                window.location.href = "/home/CreateExcelFile?file=" + datas;
+            } 
             ValidationError(data.Status, data.ErrorString, "ExpErrorField");
             $('#EverBuffer').hide();
         },
         error: function (ex) {
+            alert(ex.responseText);
             $('#EverBuffer').hide();
         }
     });

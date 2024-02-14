@@ -24,14 +24,22 @@
                         <input type="date" id="txtToDate"><br><br>
                     </div>
                 </div>
-                <div style="padding-left: 50px; padding: 10px;">
+                @*<div style="padding-left: 50px; padding: 10px;">
                     <div>
                         <label id="lb_filepath" style="margin-right:10px">Location</label>
                         <input type="text" id="fileUpload" value="@TempData["DefaultFilePath"]"><br><br>
                     </div>
-                </div> 
+                </div>*@ 
                 <div style="padding-left: 20px; padding: 10px; text-align: end; position: absolute; right: 35px;">
-                    <button class="btn btn-success" onclick="ExportToExcel()"><span>Export File</span></button>
+                    @*@using (Html.BeginForm("ExportToExcel", "Home", new { FromDate = @Model.Id }, FormMethod.Post))
+                    {
+                        <button type="submit" class="btn btn-success">
+                            <i class="glyphicon glyphicon glyphicon-download"></i> Download CSV
+                        </button>
+                    }*@
+                    <button class="btn btn-success" onclick="ExportToExcel()"><span>
+                        <i class="glyphicon glyphicon glyphicon-download"></i> Download CSV
+                    </span></button>
                 </div>
             </div>
             <div class="CustContainer">
