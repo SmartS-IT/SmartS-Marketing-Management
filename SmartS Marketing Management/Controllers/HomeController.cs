@@ -1,11 +1,11 @@
 ﻿using SmartS_Marketing_Management.Interfaces; 
 using SmartS_Marketing_Management.Services;
 using System;  
-using System.Web.Mvc;
-using ClosedXML.Excel;
-using System.IO; 
+using System.Web.Mvc; 
 using System.Data;
-using System.Configuration;
+using System.Configuration; 
+using System.Text; 
+using System.Linq; 
 
 namespace SmartS_Marketing_Management.Controllers
 {
@@ -46,88 +46,72 @@ namespace SmartS_Marketing_Management.Controllers
             if (System.Web.HttpContext.Current.Session["UserName"] == null)
             {
                 return RedirectToAction("LoginView", "UserManagment");
-            } 
-
-            TempData["DefaultFilePath"] = ConfigurationManager.AppSettings["DefaultFilePath"];
+            }  
             return View();
         }
 
         [HttpPost]
-        public ActionResult ExportToExcel(FileDetails file)
+        public JsonResult ExportToExcel(FileDetails file)
         {
             icodeServices = new CodeServicesImpl();
             var fdate = Convert.ToDateTime(file.FromDate);
             var Tdate = Convert.ToDateTime(file.ToDate);
             var data = icodeServices.FetchAllEverlyticData(fdate.ToString("dd-MM-yyyy 00:00:00"), Tdate.ToString("dd-MM-yyyy 23:59:59"), out bool status);
-            if (!status)
-                return Json(Helper.Helper.ConvertToJsonString(false,"Fetching data failed with exception", null));
 
-            if(data.Rows.Count == 0)
+            if (!status)
+                return Json(Helper.Helper.ConvertToJsonString(false, "Fetching data failed with exception", null));
+
+            if (data.Rows.Count == 0)
             {
                 return Json(Helper.Helper.ConvertToJsonString(false, "Not data found in the date range", null));
             }
 
-            status = CreateExcelFile(data, file.FilePath, out string filename);
-            if (status)
-            {
-               return Json(Helper.Helper.ConvertToJsonString(status, "File saved successfully in the location :-"+ filename, null));
-            }
-            return Json(status);
-        }
 
-        public bool CreateExcelFile(DataTable dt, string filePath, out string filename)
+            Session["FileData"] = data;
+            return Json(Helper.Helper.ConvertToJsonString(true, "", null));
+        } 
+        public FileResult CreateExcelFile()
         {
-            filename = filePath + @"/Everlytic_" + DateTime.Now.ToString("dd_MM_yy_HH_mm_ss")+ ".csv";
-            try 
-            {
-                //using (XLWorkbook wb = new XLWorkbook())
-                //{
-                //    wb.Worksheets.Add(dt, "Everlytic");  
-                //    wb.SaveAs(filename); 
-                //}
 
-                StreamWriter sw = new StreamWriter(filename, false);
-                //headers
+            var dt = Session["FileData"] as DataTable;
+             
+            StringBuilder sb = new StringBuilder();
+            //headers
+            for (int i = 0; i < dt.Columns.Count; i++)
+            {
+                sb.Append(dt.Columns[i]);
+                if (i < dt.Columns.Count - 1)
+                {
+                    sb.Append(",");
+                }
+            }
+            sb.Append(Environment.NewLine);
+            foreach (DataRow dr in dt.Rows)
+            {
                 for (int i = 0; i < dt.Columns.Count; i++)
                 {
-                    sw.Write(dt.Columns[i]);
+                    if (!Convert.IsDBNull(dr[i]))
+                    {
+                        string value = dr[i].ToString();
+                        if (value.Contains(','))
+                        {
+                            value = String.Format("\"{0}\"", value);
+                            sb.Append(value);
+                        }
+                        else
+                        {
+                            sb.Append(dr[i].ToString());
+                        }
+                    }
                     if (i < dt.Columns.Count - 1)
                     {
-                        sw.Write(",");
+                        sb.Append(",");
                     }
                 }
-                sw.Write(sw.NewLine);
-                foreach (DataRow dr in dt.Rows)
-                {
-                    for (int i = 0; i < dt.Columns.Count; i++)
-                    {
-                        if (!Convert.IsDBNull(dr[i]))
-                        {
-                            string value = dr[i].ToString();
-                            if (value.Contains(','))
-                            {
-                                value = String.Format("\"{0}\"", value);
-                                sw.Write(value);
-                            }
-                            else
-                            {
-                                sw.Write(dr[i].ToString());
-                            }
-                        }
-                        if (i < dt.Columns.Count - 1)
-                        {
-                            sw.Write(",");
-                        }
-                    }
-                    sw.Write(sw.NewLine);
-                }
-                sw.Close();
-                return true;
-            }
-            catch(Exception e)
-            {
-                return false;
-            }
+                sb.Append(Environment.NewLine);
+            } 
+
+            return File(Encoding.UTF8.GetBytes(sb.ToString()), "text/csv", "Everlytic_" + DateTime.Now.ToString("dd_MM_yy_HH_mm_ss") + ".csv");
         }
     }
 }
