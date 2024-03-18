@@ -1581,25 +1581,29 @@ pre code {
   overflow-y: scroll;
 }
 .container {
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    height: auto;
 }
 @media (min-width: 768px) {
-  .container {
-    width: 750px;
-  }
+    .container {
+        width: 750px;
+        height: auto;
+    }
 }
 @media (min-width: 992px) {
-  .container {
-    width: 970px;
-  }
+    .container {
+        width: 970px;
+        height: auto;
+    }
 }
 @media (min-width: 1200px) {
-  .container {
-    width: 1170px;
-  }
+    .container {
+        width: auto;
+        height: auto;
+    }
 }
 .container-fluid {
   padding-right: 15px;

@@ -11,59 +11,70 @@
         <p></p>
         <p></p>
         <div>
-            <div style=" width:90%; display: grid; grid-template-columns: 1fr 1fr 1fr;">
-                <div style="grid-column: 1; text-align: left;">
+            <div class="container" style="display: flex; grid-template-columns: 1fr 1fr 1fr;">
+                <div style="grid-column: 1; text-align: left; width: 35%; ">
                     <label style=" background-color: lightgray ">&nbsp;&nbsp;Add Domain&nbsp;&nbsp; </label>
                 </div>
-                <div style="grid-column: 2; text-align: center; padding-left:25px">
+                <div style="grid-column: 2; text-align: left; width: 35%; ">
                     <label style="background-color: lightgray;">&nbsp;&nbsp;Update Domain&nbsp;&nbsp;  </label>
                 </div>
-                <div style="grid-column: 3; text-align: right;padding-left:-10px">
+                <div style="grid-column: 3; text-align: left; width: 30% ">
                     <label style="background-color: lightgray;">&nbsp;&nbsp;Search Domain&nbsp;&nbsp;</label>
                 </div>
             </div>
 
-                <div class="container" style="border: 2px solid #E0E0E0; display: flex; justify-content: left; margin-top:-5px; background-color:lightgrey">
-                    <div style="padding:10px">
-                        <div>
-                            <label id="fdomain" style="margin-right:37px">Domain</label>
-                            <input type="text" id="domain" name="domain"><br><br>
+            <div class="container" style="display: grid; grid-template-rows: auto"> 
+                <div style="grid-row:2 ;border: 2px solid #E0E0E0; display: flex;
+                        justify-content: left; margin-top: -5px; background-color: lightgrey;">
+                    <div style="display: flex; width:35%">
+                        <div style="padding: 10px;">
+                            <div>
+                                <label id="fdomain" style="margin-right:37px">Domain</label>
+                                <input type="text" id="domain" name="domain"><br><br>
+                            </div>
+                            <div>
+                                <label id="fbscode" style="margin-right:20px">BSC Code</label>
+                                <input type="text" id="bsc_code" name="bsc_code"><br><br>
+                            </div>
                         </div>
-                        <div>
-                            <label id="fbscode" style="margin-right:20px">BSC Code</label>
-                            <input type="text" id="bsc_code" name="bsc_code"><br><br>
+                        <div style="padding-left:20px;padding:10px; width:auto">
+                            <button class="btn btn-success" onclick=AddNewBSCCode()><span>Add New </span></button>
                         </div>
-                    </div>
-                    <div style="padding-left:20px;padding:10px">
-                        <button class="btn btn-success" onclick=AddNewBSCCode()><span>Add New </span></button>
                     </div>
                     <div>
                         <div class="vertical" style="height:100%"></div>
                     </div>
-                    <div style="padding-left:10px; padding:10px">
-                        <div>
-                            <label id="u_fdomain" style="margin-right:37px">Domain   </label>
-                            <input type="text" id="udomain"><br><br>
+                    <div style="display: flex; width:35%">
+                        <div style="padding-left:10px; padding:10px;">
+                            <div>
+                                <label id="u_fdomain" style="margin-right:37px">Domain   </label>
+                                <input type="text" id="udomain"><br><br>
+                            </div>
+                            <div>
+                                <label id="u_fbscode" style="margin-right:20px">BSC Code   </label>
+                                <input type="text" id="ubsccode"><br><br>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="lbnewcodes" name="newcodes" onclick="NewDomainSearch()" value="New BS Codes" style="height:15px;width:15px;" />
+                                <label for="scales">Unmapped Business-Setup Only</label>
+                            </div>
                         </div>
-                        <div>
-                            <label id="u_fbscode" style="margin-right:20px">BSC Code   </label>
-                            <input type="text" id="ubsccode"><br><br>
+                        <div style="padding-left:10px;padding:10px">
+                            <button class="btn btn-danger" onclick="UpdateBSCCode()" style="background-color: #008996"><span>Update</span></button>
                         </div>
-                        <div>
-                            <input type="checkbox" id="lbnewcodes" name="newcodes" onclick="NewDomainSearch()" value="New BS Codes" style="height:15px;width:15px;" />
-                            <label for="scales">Unmapped Business-Setup Only</label>
-                        </div>
-                    </div>
-                    <div style="padding-left:10px;padding:10px">
-                        <button class="btn btn-danger" onclick="UpdateBSCCode()" style="background-color: #008996"><span>Update</span></button>
                     </div>
                     <div>
                         <div class="vertical" style="height:100%"></div>
                     </div>
-                    <div style="padding-left:10px;padding:10px">
-                        <input type="text" id="txtSearchDomain" onkeyup="SearchDomain()" placeholder="Search Domain" />
+                    <div style="padding-left: 10px; padding: 10px; width: 30%">
+                        <input type="text" id="txtSearchDomain"
+                               placeholder="Search Domain" />
+                        <button class="btn btn-success" onclick="SearchDomain()">
+                            <span>Search</span>
+                        </button>
                     </div>
                 </div>
+            </div>
                 <div class="container">
                     <div class="form-group" style="padding-top:10px;height:100%">
                         <!--		Show Numbers Of Rows 		-->
@@ -75,7 +86,7 @@
                             <option value="20">20</option>
                             <option value="50">50</option>
                             <option value="70">70</option>
-                            <option value="100">100</option> 
+                            <option value="100">100</option>
                         </select>
 
                     </div>
@@ -94,19 +105,19 @@
                         <div class="loader" id="Buffer"></div>
                         <!--		Start Pagination -->
                         <!--<div class='pagination-container'>
-    <nav>
-        <ul class="pagination">
+            <nav>
+                <ul class="pagination">
 
-            <li data-page="prev">
-                <span> < <span class="sr-only">(current)</span></span>
-            </li>-->
+                    <li data-page="prev">
+                        <span> < <span class="sr-only">(current)</span></span>
+                    </li>-->
                         <!--	Here the JS Function Will Add the Rows -->
                         <!--<li data-page="next" id="prev">
-                    <span> > <span class="sr-only">(current)</span></span>
-                </li>
-            </ul>
-        </nav>
-    </div>-->
+                            <span> > <span class="sr-only">(current)</span></span>
+                        </li>
+                    </ul>
+                </nav>
+            </div>-->
                     </div>
                 </div>
             </div>

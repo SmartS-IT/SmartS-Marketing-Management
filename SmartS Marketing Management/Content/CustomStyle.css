@@ -108,8 +108,7 @@
 
 .vertical {
     border-left: 3px solid #E0E0E0;
-    height: 250px;
-    margin-left: 50px;
+    height: 250px; 
 }
 
 .blinker {
@@ -173,7 +172,7 @@
 .table-wrapper {
     border: 2px solid #D3D3D3;
     margin-top: 15px;
-    width: 103%;
+    width: 100%;
     max-height: 350px;
     min-height: 300px;
     overflow: auto;
