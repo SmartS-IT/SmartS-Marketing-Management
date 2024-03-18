@@ -11,102 +11,112 @@
     <p></p>
     <p></p>
     <div>
-        <div style=" width:88%; display: grid; grid-template-columns: 1fr 1fr 1fr;">
-            <div style="grid-column: 1; text-align: left;">
+        <div  class="container"  style=" width:100%; display: flex; grid-template-columns: 1fr 1fr 1fr;">
+            <div style="grid-column: 1; text-align: left; width: 35%; ">
                 <label style=" background-color: lightgray ">&nbsp;&nbsp;Add Typing Center&nbsp;&nbsp; </label>
             </div>
-            <div style="grid-column: 2; text-align: center; padding-left:60px">
+            <div style="grid-column: 2; text-align: left; width: 35%; ">
                 <label style="background-color: lightgray;">&nbsp;&nbsp;Update Typing Center&nbsp;&nbsp;  </label>
             </div>
-            <div style="grid-column: 3; text-align: right; padding-right: 8px">
+            <div style="grid-column: 3; text-align: left; width: 30%; ">
                 <label style="background-color: lightgray;">&nbsp;&nbsp;Search Name&nbsp;&nbsp;  </label>
             </div>
         </div>
-        <div class="container" style="border: 2px solid #E0E0E0; padding: 0px; display: flex; justify-content: left; margin-top: -5px;background-color:lightgrey ">
-            <div style="padding:10px">
-                <div>
-                    <label id="lbdomain" style="margin-right:50px">Name</label>
-                    <input type="text" id="tcname" name="domain"><br><br>
+        <div class="container" style="display: grid; grid-template-rows: auto">
+            <div style="grid-row:2 ;border: 2px solid #E0E0E0; display: flex;
+                        justify-content: left; margin-top: -5px; background-color: lightgrey;">
+                <div style="display: flex; width:35%">
+                    <div style="padding:10px">
+                        <div>
+                            <label id="lbdomain" style="margin-right:50px">Name</label>
+                            <input type="text" id="tcname" name="domain"><br><br>
+                        </div>
+                        <div>
+                            <label id="lbfbscode" style="margin-right:30px">TC Code</label>
+                            <input type="text" id="tccode" name="bsc_code"><br><br>
+                        </div>
+                    </div>
+                    <div style="padding-left:10px; padding:10px">
+                        <button class="btn btn-success" onclick="AddNewTCCode()"><span>Add New </span></button>
+                    </div>
                 </div>
                 <div>
-                    <label id="lbfbscode" style="margin-right:30px">TC Code</label>
-                    <input type="text" id="tccode" name="bsc_code"><br><br>
+                    <div class="vertical" style="height:100%"></div>
                 </div>
-            </div>
-            <div style="padding-left:10px; padding:10px">
-                <button class="btn btn-success" onclick="AddNewTCCode()"><span>Add New </span></button>
-            </div>
-            <div>
-                <div class="vertical" style="height:100%"></div>
-            </div>
-            <div style="padding-left: 50px; padding: 10px">
+                <div style="display: flex; width:35%">
+                    <div style="padding-left: 50px; padding: 10px">
+                        <div>
+                            <label id="u_tcdomain" style="margin-right:50px">Name   </label>
+                            <input type="text" id="utcname"><br><br>
+                        </div>
+                        <div>
+                            <label id="u_lbtccode" style="margin-right:30px">TC Code   </label>
+                            <input type="text" id="utccode"><br><br>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="lbnewtccodes" name="newcodes" onclick="NewTCCodeSearch()" value="New BS Codes" style="height:15px;width:15px;" />
+                            <label for="scales">Unmapped Typing Centers Only</label>
+                        </div>
+                    </div>
+                    <div style="padding-left: 10px; padding: 10px">
+                        <button class="btn btn-danger" onclick="UpdateTCCode()" style="background-color: #008996"><span>Update</span></button>
+                    </div>
+                </div>
                 <div>
-                    <label id="u_tcdomain" style="margin-right:50px">Name   </label>
-                    <input type="text" id="utcname"><br><br>
+                   <div class="vertical" style="height:100%"></div>
                 </div>
-                <div>
-                    <label id="u_lbtccode" style="margin-right:30px">TC Code   </label>
-                    <input type="text" id="utccode"><br><br>
+                <div style="padding-left: 10px; padding: 10px; width: 30%">
+                    <input type="text" id="txttcSearchDomain"
+                           placeholder="Search Name" />
+                    <button class="btn btn-success" onclick="SearchTCName()">
+                        <span>Search</span></button>
                 </div>
-                <div>
-                    <input type="checkbox" id="lbnewtccodes" name="newcodes" onclick="NewTCCodeSearch()" value="New BS Codes" style="height:15px;width:15px;" />
-                    <label for="scales">Unmapped Typing Centers Only</label>
                 </div>
             </div>
-            <div style="padding-left: 10px; padding: 10px">
-                <button class="btn btn-danger" onclick="UpdateTCCode()" style="background-color: #008996"><span>Update</span></button>
-            </div>
-            <div>
-                <div class="vertical" style="height:100%"></div>
-            </div>
-            <div style="padding-left: 10px; padding: 10px">
-                <input type="text" id="txttcSearchDomain" onkeyup="SearchTCName()" placeholder="Search Name" />
-            </div>
-        </div>
-        <div class="container">
-            <div class="form-group" style="padding-top:10px;height:100%">
-                <!--		Show Numbers Of Rows 		-->
-                <select class="form-control" style="width:auto" name="state" id="maxRows">
-                    <option value="5000">Show All</option>
-                    <option value="5">5</option>
-                    <option value="10">10</option>
-                    <option value="15">15</option>
-                    <option value="20">20</option>
-                    <option value="50">50</option>
-                    <option value="70">70</option>
-                    <option value="100">100</option>
-                </select>
+            <div class="container">
+                <div class="form-group" style="padding-top:10px;height:100%">
+                    <!--		Show Numbers Of Rows 		-->
+                    <select class="form-control" style="width:auto" name="state" id="maxRows">
+                        <option value="5000">Show All</option>
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="15">15</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                        <option value="70">70</option>
+                        <option value="100">100</option>
+                    </select>
 
-            </div>
-            <div class="table-wrapper">
-                <table class="table table-striped table-class" id="tb_tccode">
-                    <thead>
-                        <tr>
-                            <th>Check</th>
-                            <th>Name</th>
-                            <th>TC Code</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-                <div class="loader" id="Buffer"></div>
-                <!--		Start Pagination -->
-                <!--<div class='pagination-container'>
-    <nav>
-        <ul class="pagination">
+                </div>
+                <div class="table-wrapper">
+                    <table class="table table-striped table-class" id="tb_tccode">
+                        <thead>
+                            <tr>
+                                <th>Check</th>
+                                <th>Name</th>
+                                <th>TC Code</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    <div class="loader" id="Buffer"></div>
+                    <!--		Start Pagination -->
+                    <!--<div class='pagination-container'>
+            <nav>
+                <ul class="pagination">
 
-            <li data-page="prev">
-                <span> < <span class="sr-only">(current)</span></span>
-            </li>-->
-                <!--	Here the JS Function Will Add the Rows -->
-                <!--<li data-page="next" id="prev">
-                    <span> > <span class="sr-only">(current)</span></span>
-                </li>
-            </ul>
-        </nav>
-    </div>-->
-            </div>
+                    <li data-page="prev">
+                        <span> < <span class="sr-only">(current)</span></span>
+                    </li>-->
+                    <!--	Here the JS Function Will Add the Rows -->
+                    <!--<li data-page="next" id="prev">
+                            <span> > <span class="sr-only">(current)</span></span>
+                        </li>
+                    </ul>
+                </nav>
+            </div>-->
+                </div>
             </div>
         </div>
 
