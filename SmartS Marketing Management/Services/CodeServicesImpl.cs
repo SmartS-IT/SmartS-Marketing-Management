@@ -136,11 +136,11 @@ namespace SmartS_Marketing_Management.Services
             return customerInfos;
         }
 
-        public bool InsertJobFunction(string jobFunction)
+        public bool InsertJobFunction(string jobFunction, int userID)
         {
             try
             {
-                return dBConnectivityImpl.InsertJobFunction(jobFunction);
+                return dBConnectivityImpl.InsertJobFunction(jobFunction, userID);
 
             }
             catch
@@ -149,11 +149,11 @@ namespace SmartS_Marketing_Management.Services
             }
         }
 
-        public bool InsertJobIndustry(string industry)
+        public bool InsertJobIndustry(string industry, int userID)
         {
             try
             {
-                return dBConnectivityImpl.InsertIndustry(industry);
+                return dBConnectivityImpl.InsertIndustry(industry, userID);
 
             }
             catch
@@ -231,6 +231,19 @@ namespace SmartS_Marketing_Management.Services
                 status = false;
             }
             return userDetails;
+        }
+
+        public bool InsertDataLog(TableLog listTableLogs)
+        { 
+            try
+            {
+                return dBConnectivityImpl.InsertDataLog(listTableLogs);
+
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

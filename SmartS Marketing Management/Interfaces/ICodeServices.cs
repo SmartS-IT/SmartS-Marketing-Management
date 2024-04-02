@@ -24,9 +24,9 @@ namespace SmartS_Marketing_Management.Interfaces
 
         DataTable FetchAllEverlyticData(string fDate, string tDate, out bool status);
 
-        bool InsertJobFunction(string jobFunction);
+        bool InsertJobFunction(string jobFunction, int userID);
 
-        bool InsertJobIndustry(string industry);
+        bool InsertJobIndustry(string industry, int userID);
 
         List<CustomerInfoModel> FetchAllApplicationData(string fromDate, string ToDate, string domain,
             string tcName, string mobile, string freezoneCode, out bool status);
@@ -37,6 +37,8 @@ namespace SmartS_Marketing_Management.Interfaces
         List<JobDetails> FetchAllJobDetails(out bool status);
 
         List<UserDetails> FetchUserDetails(string username, out bool status);
+
+        bool InsertDataLog(TableLog listTableLogs);
 
     }
 }

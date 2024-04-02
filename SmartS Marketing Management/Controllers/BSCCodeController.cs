@@ -48,6 +48,10 @@ namespace SmartS_Marketing_Management.Controllers
             {
                 return Json(Helper.Helper.ConvertToJsonString(false, "Domain is already exist", null));
             }
+
+            data.CreatedBy = Convert.ToInt32(Session["User_Id"]);
+            data.CreatedOn = DateTime.Now;
+
             icodeServices = new CodeServicesImpl();
             var status = icodeServices.AddNewBSCCodes(data);
             if (!status)
@@ -103,7 +107,49 @@ namespace SmartS_Marketing_Management.Controllers
         public ActionResult UpdateBscCode(BscCodeModel data)
         {
             icodeServices = new CodeServicesImpl();
-            var status = icodeServices.UpdateBscCode(data);
+            bscCodeModels = FetchAllData(out bool s);
+            var status = false;
+            var dt = bscCodeModels.Where(x => x.ID == data.ID);
+            if(dt.Any())
+            {
+                var listLog = new List<TableLog>();
+                if(dt.FirstOrDefault().Domain.ToUpper() != data.Domain.ToUpper())
+                {
+                    listLog.Add(new TableLog()
+                    {
+                        Table_Identity_Id = 1,
+                        Dtls_Id = data.ID,
+                        Old_Value = dt.FirstOrDefault().Domain,
+                        New_Value = data.Domain,
+                        EntryDate = DateTime.Now,
+                        UserId = Convert.ToInt32(Session["User_Id"])
+                    });
+                }
+
+                if (dt.FirstOrDefault().BSC_Code.ToUpper() != data.BSC_Code.ToUpper())
+                {
+                    listLog.Add(new TableLog()
+                    {
+                        Table_Identity_Id = 1,
+                        Dtls_Id = data.ID,
+                        Old_Value = dt.FirstOrDefault().BSC_Code,
+                        New_Value = data.BSC_Code,
+                        EntryDate = DateTime.Now,
+                        UserId = Convert.ToInt32(Session["User_Id"])
+                    });
+                }
+
+                foreach(var logs in listLog)
+                {
+                    status = icodeServices.InsertDataLog(logs);
+                    if(!status)
+                    {
+                        return Json(Helper.Helper.ConvertToJsonString(status, "Failed to update log", null));
+                    }
+                }
+            } 
+
+            status = icodeServices.UpdateBscCode(data);
             if(!status)
             {
                 return Json(Helper.Helper.ConvertToJsonString(status, "Failed to update code", null));

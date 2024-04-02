@@ -35,6 +35,7 @@ namespace SmartS_Marketing_Management.Controllers
                 {
                     System.Web.HttpContext.Current.Session["UserName"] = username;
                     System.Web.HttpContext.Current.Session["Name"] = userDetails.FirstOrDefault().Name;
+                    System.Web.HttpContext.Current.Session["User_Id"] = userDetails.FirstOrDefault().Id;
                     return Json(Helper.Helper.ConvertToJsonString(true, "", "/BSCCode/BscUpdate"));
                 }
                 else
@@ -50,6 +51,7 @@ namespace SmartS_Marketing_Management.Controllers
         {
             System.Web.HttpContext.Current.Session["UserName"] = null;
             System.Web.HttpContext.Current.Session["Name"] = null;
+            System.Web.HttpContext.Current.Session["User_Id"] = null;
             return RedirectToAction("LoginView", "UserManagment");
         }
     }
