@@ -11,6 +11,8 @@ namespace SmartS_Marketing_Management.Models
         public string Email { get; set; }
         public string Domain { get; set; }
         public string BSC_Code { get; set; }
+        public int CreatedBy { get; set; }
+        public DateTime CreatedOn { get; set; }
 
     }
 }

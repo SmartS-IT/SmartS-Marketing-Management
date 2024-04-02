@@ -245,6 +245,7 @@
     <Compile Include="Models\CustomerInfoModel.cs" />
     <Compile Include="Models\JobDetails.cs" />
     <Compile Include="Models\JobFunctions.cs" />
+    <Compile Include="Models\TableLog.cs" />
     <Compile Include="Models\TcCodeModel.cs" />
     <Compile Include="Models\UserDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

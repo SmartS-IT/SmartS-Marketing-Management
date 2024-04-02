@@ -72,7 +72,7 @@ namespace SmartS_Marketing_Management.Controllers
                     } 
                 }
 
-                status = icodeServices.InsertJobFunction(Function);
+                status = icodeServices.InsertJobFunction(Function, Convert.ToInt32(Session["User_Id"]));
                 if (!status)
                     return Json(Helper.Helper.ConvertToJsonString(status, "Error occured to save job function..!!", null));
             }
@@ -88,7 +88,7 @@ namespace SmartS_Marketing_Management.Controllers
                     }
                 }
 
-                status = icodeServices.InsertJobIndustry(Industry);
+                status = icodeServices.InsertJobIndustry(Industry, Convert.ToInt32(Session["User_Id"]));
                 if (!status)
                     return Json(Helper.Helper.ConvertToJsonString(status, "Error occured to save job function..!!", null));
             } 
@@ -118,6 +118,56 @@ namespace SmartS_Marketing_Management.Controllers
         {
             bool status = false;
             icodeServices = new CodeServicesImpl();
+
+            var data = icodeServices.FetchAllJobDetails(out status);
+            var dt = data.Where(x => x.Id == jobFunctions.Id);
+            if (dt.Any())
+            {
+                var listLog = new List<TableLog>(); 
+                if (dt.FirstOrDefault().JobFunction!= jobFunctions.JobFunction)
+                {
+                    var functions = icodeServices.FetchAllJobFunctions(0, out status);
+                    var oldFunDtls = functions.Item1.Where(x => x.Id == dt.FirstOrDefault().JobFunction);
+                    var newFunDtls = functions.Item1.Where(x => x.Id == jobFunctions.JobFunction);
+
+                    listLog.Add(new TableLog()
+                    {
+                        Table_Identity_Id = 3,
+                        Dtls_Id = dt.FirstOrDefault().JobFunction,
+                        Old_Value = oldFunDtls.FirstOrDefault().FunctionName,
+                        New_Value = newFunDtls.FirstOrDefault().FunctionName,
+                        EntryDate = DateTime.Now,
+                        UserId = Convert.ToInt32(Session["User_Id"])
+                    });
+                }
+
+                if (dt.FirstOrDefault().Industry != jobFunctions.Industry)
+                {
+                    var industrys = icodeServices.FetchAllJobFunctions(1, out status);
+                    var oldIndDtls = industrys.Item2.Where(x => x.Id == dt.FirstOrDefault().Industry);
+                    var newIndDtls = industrys.Item2.Where(x => x.Id == jobFunctions.Industry);
+
+                    listLog.Add(new TableLog()
+                    {
+                        Table_Identity_Id = 3,
+                        Dtls_Id = dt.FirstOrDefault().JobFunction,
+                        Old_Value = oldIndDtls.FirstOrDefault().IndustryName,
+                        New_Value = newIndDtls.FirstOrDefault().IndustryName,
+                        EntryDate = DateTime.Now,
+                        UserId = Convert.ToInt32(Session["User_Id"])
+                    });
+                }
+
+                foreach (var logs in listLog)
+                {
+                    status = icodeServices.InsertDataLog(logs);
+                    if (!status)
+                    {
+                        return Json(Helper.Helper.ConvertToJsonString(status, "Failed to update log", null));
+                    }
+                }
+            }
+
             status = icodeServices.UpdateJobDetails(jobFunctions);
             if (!status)
             {

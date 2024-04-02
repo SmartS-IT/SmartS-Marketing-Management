@@ -30,14 +30,21 @@ namespace SmartS_Marketing_Management.Connectivity
                 var paramEmail = new SqlParameter("@EMAIL", SqlDbType.NVarChar, 30);
                 var paramDomain = new SqlParameter("@DOMAIN", SqlDbType.VarChar, 100);
                 var paraBscCode = new SqlParameter("@BSC_CODE", SqlDbType.VarChar, 100);
+                var paramCreatedBy = new SqlParameter("@CREATED_BY", SqlDbType.Int);
+                var paraCreatedOn = new SqlParameter("@CREATED_ON", SqlDbType.DateTime);
 
                 paramEmail.Value = bscCodeModel.Email;
                 paramDomain.Value = bscCodeModel.Domain;
                 paraBscCode.Value = bscCodeModel.BSC_Code;
+                paramCreatedBy.Value = bscCodeModel.CreatedBy;
+                paraCreatedOn.Value = bscCodeModel.CreatedOn;
 
                 sqlCommand.Parameters.Add(paramEmail);
                 sqlCommand.Parameters.Add(paramDomain);
                 sqlCommand.Parameters.Add(paraBscCode);
+                sqlCommand.Parameters.Add(paramCreatedBy);
+                sqlCommand.Parameters.Add(paraCreatedOn);
+
                 sqlConnection.Open();
                 sqlCommand.ExecuteNonQuery(); 
             }
@@ -124,12 +131,19 @@ namespace SmartS_Marketing_Management.Connectivity
                 sqlCommand.CommandType = CommandType.StoredProcedure; 
                 var paramTcName = new SqlParameter("@NAME", SqlDbType.VarChar, 100);
                 var paraTcCode = new SqlParameter("@TC_CODE", SqlDbType.VarChar, 100);
+                var paramCreatedBy = new SqlParameter("@CREATED_BY", SqlDbType.Int);
+                var paraCreatedOn = new SqlParameter("@CREATED_ON", SqlDbType.DateTime);
 
                 paramTcName.Value = tcCodeModel.TC_Name;
-                paraTcCode.Value = tcCodeModel.TC_Code; 
+                paraTcCode.Value = tcCodeModel.TC_Code;
+                paramCreatedBy.Value = tcCodeModel.CreatedBy;
+                paraCreatedOn.Value = tcCodeModel.CreatedOn;
 
                 sqlCommand.Parameters.Add(paramTcName);
                 sqlCommand.Parameters.Add(paraTcCode);
+                sqlCommand.Parameters.Add(paramCreatedBy);
+                sqlCommand.Parameters.Add(paraCreatedOn);
+
                 sqlConnection.Open();
                 sqlCommand.ExecuteNonQuery();
             }
@@ -239,7 +253,7 @@ namespace SmartS_Marketing_Management.Connectivity
             return table;
         }
 
-        public bool InsertJobFunction(string JobFunction)
+        public bool InsertJobFunction(string JobFunction, int userID)
         {
             try
             {
@@ -247,11 +261,18 @@ namespace SmartS_Marketing_Management.Connectivity
                 sqlCommand.Connection = sqlConnection;
                 sqlCommand.CommandText = "INSERT_MS_JOB_FUNCTION";
                 sqlCommand.CommandType = CommandType.StoredProcedure;
-                var paramFuncName = new SqlParameter("@FUNCTION_NAME", SqlDbType.VarChar, 100); 
+                var paramFuncName = new SqlParameter("@FUNCTION_NAME", SqlDbType.VarChar, 100);
+                var paramCreatedBy = new SqlParameter("@CREATED_BY", SqlDbType.Int);
+                var paraCreatedOn = new SqlParameter("@CREATED_ON", SqlDbType.DateTime);
 
                 paramFuncName.Value = JobFunction; 
+                paramCreatedBy.Value = userID;
+                paraCreatedOn.Value = DateTime.Now;
 
-                sqlCommand.Parameters.Add(paramFuncName); 
+                sqlCommand.Parameters.Add(paramFuncName);
+                sqlCommand.Parameters.Add(paramCreatedBy);
+                sqlCommand.Parameters.Add(paraCreatedOn);
+
                 sqlConnection.Open();
                 sqlCommand.ExecuteNonQuery();
             }
@@ -266,7 +287,7 @@ namespace SmartS_Marketing_Management.Connectivity
             return true;
         }
 
-        public bool InsertIndustry(string Industry)
+        public bool InsertIndustry(string Industry, int userID)
         {
             try
             {
@@ -275,10 +296,17 @@ namespace SmartS_Marketing_Management.Connectivity
                 sqlCommand.CommandText = "INSERT_MS_JOB_INDUSTRY";
                 sqlCommand.CommandType = CommandType.StoredProcedure;
                 var paraIndustry = new SqlParameter("@INDUSTRY_NAME", SqlDbType.VarChar, 100);
+                var paramCreatedBy = new SqlParameter("@CREATED_BY", SqlDbType.Int);
+                var paraCreatedOn = new SqlParameter("@CREATED_ON", SqlDbType.DateTime);
 
                 paraIndustry.Value = Industry;
+                paramCreatedBy.Value = userID;
+                paraCreatedOn.Value = DateTime.Now;
 
                 sqlCommand.Parameters.Add(paraIndustry);
+                sqlCommand.Parameters.Add(paramCreatedBy);
+                sqlCommand.Parameters.Add(paraCreatedOn);
+
                 sqlConnection.Open();
                 sqlCommand.ExecuteNonQuery();
             }
@@ -477,6 +505,49 @@ namespace SmartS_Marketing_Management.Connectivity
                 sqlConnection.Close();
             }
             return table;
+        }
+
+        public bool InsertDataLog(TableLog tableLog)
+        {
+            try
+            {
+                sqlCommand = new SqlCommand();
+                sqlCommand.Connection = sqlConnection;
+                sqlCommand.CommandText = "INSERT_MS_DATA_LOG";
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                var paraTbID = new SqlParameter("@TABLE_IDENTIFIER_ID", SqlDbType.Int, 150);
+                var paraDtlsId = new SqlParameter("@DTLS_ID", SqlDbType.Int, 150);
+                var paraOld = new SqlParameter("@OLD_VALUE", SqlDbType.VarChar, 150);
+                var paraNewValue = new SqlParameter("@NEW_VALUE", SqlDbType.VarChar, 150);
+                var paraEntryDate = new SqlParameter("@ENTRY_DATE", SqlDbType.DateTime);
+                var paraUserId = new SqlParameter("@USER_ID", SqlDbType.Int);
+
+                paraTbID.Value = tableLog.Table_Identity_Id;
+                paraDtlsId.Value = tableLog.Dtls_Id;
+                paraOld.Value = tableLog.Old_Value;
+                paraNewValue.Value = tableLog.New_Value;
+                paraEntryDate.Value = tableLog.EntryDate;
+                paraUserId.Value = tableLog.UserId;
+
+                sqlCommand.Parameters.Add(paraTbID);
+                sqlCommand.Parameters.Add(paraDtlsId);
+                sqlCommand.Parameters.Add(paraOld);
+                sqlCommand.Parameters.Add(paraNewValue);
+                sqlCommand.Parameters.Add(paraEntryDate);
+                sqlCommand.Parameters.Add(paraUserId);
+
+                sqlConnection.Open();
+                sqlCommand.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+            return true;
         }
     }
 }

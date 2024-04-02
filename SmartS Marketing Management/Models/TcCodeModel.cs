@@ -9,6 +9,8 @@ namespace SmartS_Marketing_Management.Models
     {
         public int ID { get; set; }
         public string TC_Name { get; set; }
-        public string TC_Code { get; set; }
+        public string TC_Code { get; set; } 
+        public int CreatedBy { get; set; }
+        public DateTime CreatedOn { get; set; }
     }
 }
