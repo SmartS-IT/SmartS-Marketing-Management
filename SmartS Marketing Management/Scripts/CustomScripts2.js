@@ -141,7 +141,7 @@ function FetchJobFunctionsOrIndustr(m) {
                 JobIndus = d.Data;
                 AddToDropDown(d.Data, "ComboJobIndus", 1);
             }
-            else {
+            if (!d.Status) {
                 ValidationError(false, d.ErrorString, "JbTxtErrorField");
             }
         },

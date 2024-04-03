@@ -450,7 +450,6 @@ function InsertJobfunctions()
         Industry: $('#txtIndustry').val(),
     };
 
-    $('#EverBuffer').show();
     $.ajax({
         type: 'POST',
         url: '/JobFunction/InsertFunctionAndIndustry',
@@ -462,14 +461,10 @@ function InsertJobfunctions()
                 FetchJobFunctionsOrIndustr(1);
                 $('#txtJobFunc').val("");
                 $('#txtIndustry').val("");
-            } else {
-
             }
-            ValidationError(data.Status, data.ErrorString, "JbTxtErrorField");
-            $('#EverBuffer').hide(); 
+            ValidationError(data.Status, data.ErrorString, "JbTxtErrorField"); 
         },
-        error: function (ex) {
-            $('#EverBuffer').hide();
+        error: function (ex) { 
             ValidationError(false, "Failed with error..!!", "JbTxtErrorField");
         }
     });
