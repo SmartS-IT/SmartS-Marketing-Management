@@ -297,6 +297,7 @@
     <Content Include="Views\JobFunction\JobFunction.cshtml" />
     <Content Include="Views\MiscellaneousSearch\ApplicationSearch.cshtml" />
     <Content Include="Views\UserManagment\LoginView.cshtml" />
+    <Content Include="Views\Home\DataAnalysisView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

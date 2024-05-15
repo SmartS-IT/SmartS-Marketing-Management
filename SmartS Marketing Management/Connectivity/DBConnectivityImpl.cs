@@ -217,7 +217,7 @@ namespace SmartS_Marketing_Management.Connectivity
             return true;
         }
 
-        public DataTable FetchAllEverlyticData(string fromDate, string ToDate, out bool status)
+        public DataTable FetchAllEverlyticData(string fromDate, string ToDate, int mode, out bool status)
         {
             status = true;
             DataTable table = new DataTable();
@@ -231,12 +231,15 @@ namespace SmartS_Marketing_Management.Connectivity
 
                 var fromDt = new SqlParameter("@Fromdate", SqlDbType.VarChar, 30);
                 var ToDt = new SqlParameter("@Todate", SqlDbType.VarChar, 30);
+                var Mode = new SqlParameter("@Mode", SqlDbType.Int);
 
                 fromDt.Value = fromDate;
-                ToDt.Value = ToDate; 
+                ToDt.Value = ToDate;
+                Mode.Value = mode;
 
                 sqlCommand.Parameters.Add(fromDt);
-                sqlCommand.Parameters.Add(ToDt); 
+                sqlCommand.Parameters.Add(ToDt);
+                sqlCommand.Parameters.Add(Mode);
 
                 sqlConnection.Open();
                 adapt.Fill(table); 

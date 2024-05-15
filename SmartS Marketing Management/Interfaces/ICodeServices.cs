@@ -22,7 +22,7 @@ namespace SmartS_Marketing_Management.Interfaces
 
         bool UpdateTcCode(TcCodeModel bscCodeModel);
 
-        DataTable FetchAllEverlyticData(string fDate, string tDate, out bool status);
+        DataTable FetchAllEverlyticData(string fDate, string tDate, int mode, out bool status);
 
         bool InsertJobFunction(string jobFunction, int userID);
 

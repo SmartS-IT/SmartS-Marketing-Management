@@ -18,6 +18,7 @@ namespace SmartS_Marketing_Management.Controllers
             public string FromDate { get; set; }
             public string ToDate { get; set; }
             public string FilePath { get; set; }
+            public string Mode { get; set; }
         }
         public HomeController()
         { 
@@ -50,13 +51,23 @@ namespace SmartS_Marketing_Management.Controllers
             return View();
         }
 
+        public ActionResult DataAnalysisView()
+        {
+            if (System.Web.HttpContext.Current.Session["UserName"] == null)
+            {
+                return RedirectToAction("LoginView", "UserManagment");
+            }
+            return View();
+        }
+
         [HttpPost]
         public JsonResult ExportToExcel(FileDetails file)
         {
             icodeServices = new CodeServicesImpl();
             var fdate = Convert.ToDateTime(file.FromDate);
             var Tdate = Convert.ToDateTime(file.ToDate);
-            var data = icodeServices.FetchAllEverlyticData(fdate.ToString("dd-MM-yyyy 00:00:00"), Tdate.ToString("dd-MM-yyyy 23:59:59"), out bool status);
+            var mode = Convert.ToInt32(file.Mode);
+            var data = icodeServices.FetchAllEverlyticData(fdate.ToString("dd-MM-yyyy 00:00:00"), Tdate.ToString("dd-MM-yyyy 23:59:59"), mode, out bool status);
 
             if (!status)
                 return Json(Helper.Helper.ConvertToJsonString(false, "Fetching data failed with exception", null));
@@ -68,6 +79,14 @@ namespace SmartS_Marketing_Management.Controllers
 
 
             Session["FileData"] = data;
+            if(mode==2)
+            {
+                Session["FileName"] = "DataAnalysis_";
+            }
+            else
+            {
+                Session["FileName"] = "Everlytic_";
+            }
             return Json(Helper.Helper.ConvertToJsonString(true, "", null));
         } 
         public FileResult CreateExcelFile()
@@ -111,7 +130,7 @@ namespace SmartS_Marketing_Management.Controllers
                 sb.Append(Environment.NewLine);
             } 
 
-            return File(Encoding.UTF8.GetBytes(sb.ToString()), "text/csv", "Everlytic_" + DateTime.Now.ToString("dd_MM_yy_HH_mm_ss") + ".csv");
+            return File(Encoding.UTF8.GetBytes(sb.ToString()), "text/csv", Session["FileName"].ToString() + DateTime.Now.ToString("dd_MM_yy_HH_mm_ss") + ".csv");
         }
     }
 }
