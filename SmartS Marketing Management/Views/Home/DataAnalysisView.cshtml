@@ -1,16 +1,17 @@
 ﻿
 @{
-    ViewBag.Title = "EverlyticView";
-} 
+    ViewBag.Title = "DataAnalysisView";
+}
+
 <div>
     <div>
         <div style="display: flex; justify-content: space-between;">
-            <h4 style="text-align: left;">Everlytic Data</h4>
+            <h4 style="text-align: left;">Data Analysis</h4>
             <label id="ExpErrorField" style="padding-top:9px" class="blinker"></label>
         </div>
         <p></p>
         <p></p>
-        <div>  
+        <div>
             <div class="container" style="border: 2px solid #E0E0E0; display: flex; justify-content: left; margin-top: -5px; background-color: lightgrey ">
                 <div style="padding:10px">
                     <div>
@@ -25,25 +26,27 @@
                     </div>
                 </div>
                 @*<div style="padding-left: 50px; padding: 10px;">
-                    <div>
-                        <label id="lb_filepath" style="margin-right:10px">Location</label>
-                        <input type="text" id="fileUpload" value="@TempData["DefaultFilePath"]"><br><br>
-                    </div>
-                </div>*@ 
+                        <div>
+                            <label id="lb_filepath" style="margin-right:10px">Location</label>
+                            <input type="text" id="fileUpload" value="@TempData["DefaultFilePath"]"><br><br>
+                        </div>
+                    </div>*@
                 <div style="padding-left: 20px; padding: 10px; text-align: end; position: absolute; right: 35px;">
                     @*@using (Html.BeginForm("ExportToExcel", "Home", new { FromDate = @Model.Id }, FormMethod.Post))
-                    {
-                        <button type="submit" class="btn btn-success">
+                        {
+                            <button type="submit" class="btn btn-success">
+                                <i class="glyphicon glyphicon glyphicon-download"></i> Download CSV
+                            </button>
+                        }*@
+                    <button class="btn btn-success" onclick="ExportToExcel(2)">
+                        <span>
                             <i class="glyphicon glyphicon glyphicon-download"></i> Download CSV
-                        </button>
-                    }*@
-                    <button class="btn btn-success" onclick="ExportToExcel(0)"><span>
-                        <i class="glyphicon glyphicon glyphicon-download"></i> Download CSV
-                    </span></button>
+                        </span>
+                    </button>
                 </div>
             </div>
             <div class="CustContainer">
-                <div class="loader" id="EverBuffer" ></div>
+                <div class="loader" id="EverBuffer"></div>
                 <!--		Start Pagination -->
                 <!--<div class='pagination-container'>
                 <nav>

@@ -398,7 +398,7 @@ function NewTCCodeSearch() {
 //#End Region
 
 //#region Export File
-function ExportToExcel() {
+function ExportToExcel(m) {
     if ($('#txtFromDate').val().length === 0 || $('#txtToDate').val().length === 0) {
         ValidationError(false, "Please select dates..!!", "ExpErrorField");
         return;
@@ -413,6 +413,7 @@ function ExportToExcel() {
         FromDate: $('#txtFromDate').val(),
         ToDate: $('#txtToDate').val(),
         FilePath: "",
+        Mode: m
     };
 
     $('#EverBuffer').show();

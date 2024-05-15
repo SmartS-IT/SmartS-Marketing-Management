@@ -103,13 +103,13 @@ namespace SmartS_Marketing_Management.Services
             }
         }
 
-        public DataTable FetchAllEverlyticData(string fDate, string tDate, out bool status)
+        public DataTable FetchAllEverlyticData(string fDate, string tDate, int mode, out bool status)
         {
             status = true;
             var dt = new DataTable();
             try
             {
-                  dt = dBConnectivityImpl.FetchAllEverlyticData(fDate, tDate, out status); 
+                  dt = dBConnectivityImpl.FetchAllEverlyticData(fDate, tDate, mode, out status); 
 
             }
             catch
