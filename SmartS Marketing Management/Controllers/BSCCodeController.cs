@@ -68,7 +68,9 @@ namespace SmartS_Marketing_Management.Controllers
                 bscCodeModels = FetchAllData(out bool status);
                 if (status)
                 {
-                    return Json(bscCodeModels, JsonRequestBehavior.AllowGet);
+                    var jsonResult= Json(bscCodeModels, JsonRequestBehavior.AllowGet);
+                    jsonResult.MaxJsonLength = int.MaxValue;
+                    return jsonResult;
                 }
             } 
             return Json(bscCodeModels);
