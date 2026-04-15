@@ -1,4 +1,5 @@
-﻿using SmartS_Marketing_Management.Interfaces;
+﻿using DocumentFormat.OpenXml.Spreadsheet;
+using SmartS_Marketing_Management.Interfaces;
 using SmartS_Marketing_Management.Models;
 using SmartS_Marketing_Management.Services;
 using System;
@@ -81,10 +82,14 @@ namespace SmartS_Marketing_Management.Controllers
             bscCodeModels = FetchAllData(out bool status);
             if (!string.IsNullOrEmpty(searchData))
             { 
-                var items = bscCodeModels.Where(x => x.Domain.ToUpper().Contains(searchData.ToUpper())).Select(y => y);
-                return Json(items);
+                var items = bscCodeModels.Where(x => x.Domain.ToUpper().Contains(searchData.ToUpper())).Select(y => y); 
+                var jsonResult = Json(items, JsonRequestBehavior.AllowGet);
+                jsonResult.MaxJsonLength = int.MaxValue;
+                return jsonResult;
             }
-            return Json(bscCodeModels);
+            var jsonResult1 = Json(bscCodeModels, JsonRequestBehavior.AllowGet);
+            jsonResult1.MaxJsonLength = int.MaxValue;
+            return jsonResult1; 
         }
 
         public JsonResult NewDomainSearch(bool IsChecked)
@@ -93,9 +98,13 @@ namespace SmartS_Marketing_Management.Controllers
             if (IsChecked)
             {
                 var items = bscCodeModels.Where(x => string.IsNullOrEmpty(x.BSC_Code)).Select(y => y);
-                return Json(items);
+                var jsonResult = Json(items, JsonRequestBehavior.AllowGet);
+                jsonResult.MaxJsonLength = int.MaxValue;
+                return jsonResult;
             }
-            return Json(bscCodeModels);
+            var jsonResult1 = Json(bscCodeModels, JsonRequestBehavior.AllowGet);
+            jsonResult1.MaxJsonLength = int.MaxValue;
+            return jsonResult1; 
         }
 
 
